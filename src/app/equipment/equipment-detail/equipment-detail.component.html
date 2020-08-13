@@ -1,0 +1,17 @@
+<form [formGroup]="formDetail">
+  <h1 mat-dialog-title>Equipment</h1>
+  <div mat-dialog-content>
+    <p>Name</p>
+    <mat-form-field>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+    <p>Short Name</p>
+    <mat-form-field>
+      <input matInput formControlName="shortName" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button >Cancel</button>
+    <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Save</button>
+  </div>
+</form>

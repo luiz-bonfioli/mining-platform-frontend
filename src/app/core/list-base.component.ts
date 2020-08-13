@@ -1,0 +1,171 @@
+import { Injector, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { ModelBase } from './model-base';
+import { ServiceBase } from './service-base';
+import { MenuItem } from './action-menu/menu-item';
+import { ContextService } from './context/context.service';
+import { DataResponse } from './data-response';
+
+export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> implements OnInit {
+  /**
+   *  Pagination setup
+   */
+  public currentPage: number = 1;
+  public maxPerPage: number = 10;
+  public totalItems: number;
+
+  /**
+   * ListBase properties
+   */
+  public items: M[];
+  public selected: M;
+  public parent: ModelBase;
+
+  private parentId: number = null;
+  public menuItems: MenuItem[];
+
+  protected router: Router = this.injector.get(Router);
+  protected location: Location = this.injector.get(Location);
+  protected activatedRoute: ActivatedRoute = this.injector.get(ActivatedRoute);
+  protected context: ContextService = this.injector.get(ContextService);
+
+  constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector) {}
+
+  ngOnInit(): void {
+    this.fetchRouteParameters();
+    this.createMenu();
+    this.service.findAll().subscribe(equipments => (this.items = equipments));
+  }
+
+  protected createMenu(): void {
+    this.menuItems = new Array<MenuItem>();
+
+    let backMenu = new MenuItem();
+    backMenu.icon = 'clear';
+    backMenu.class = 'green-btn';
+    backMenu.action = () => this.back();
+    this.addMenuItem(backMenu);
+
+    let newMenu = new MenuItem();
+    newMenu.icon = 'add';
+    newMenu.class = 'green-btn';
+    newMenu.action = () => this.newItem();
+    this.addMenuItem(newMenu);
+
+    let updateMenu = new MenuItem();
+    updateMenu.icon = 'create';
+    updateMenu.class = 'green-btn';
+    updateMenu.action = () => this.updateItem();
+    this.addMenuItem(updateMenu);
+
+    let removeMenu = new MenuItem();
+    removeMenu.icon = 'delete';
+    removeMenu.class = 'red-btn';
+    removeMenu.action = () => this.removeItem();
+    this.addMenuItem(removeMenu);
+  }
+
+  protected addMenuItem(item: MenuItem): void {
+    this.menuItems.push(item);
+  }
+
+  // public onLazyLoad(event: LazyLoadEvent): void {
+  //   this.fetchRouteParameters();
+  //   this.fetchList(event);
+  // }
+
+  private fetchRouteParameters(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.fetchParentIdParameter(params);
+    });
+  }
+
+  private fetchParentIdParameter(params: Params): void {
+    if (params['parentId'] !== undefined) {
+      this.parentId = +params['parentId'];
+    }
+  }
+
+  // private fetchList(event: LazyLoadEvent): void {
+  //   if (this.parentId !== null) {
+  //     this.fetchChildren(event.first, event.rows, event.sortOrder, event.sortField, this.parentId);
+  //   }
+  //   else {
+  //     this.fetchItems(event.first, event.rows, event.sortOrder, event.sortField, event.globalFilter);
+  //   }
+  // }
+
+  public fetchItems(startingAt: number, maxPerPage: number, sortOrder: number, sortField: string, globalFilter: string): void {
+    this.service.fetchItems(startingAt, maxPerPage, sortOrder, sortField, globalFilter).subscribe(response => this.parseResponse(response));
+  }
+
+  public fetchChildren(startingAt: number, maxPerPage: number, sortOrder: number, sortField: string, parentId: number): void {
+    this.service.fetchChildren(startingAt, maxPerPage, sortOrder, sortField, parentId).subscribe(response => this.parseResponse(response));
+  }
+
+  protected parseResponse(response: DataResponse<M>) {
+    this.items = response.items.map(item => {
+      return this.mapItem(item);
+    });
+    this.totalItems = response.totalItems;
+  }
+
+  protected mapItem(item: M): M {
+    return item;
+  }
+
+  public newItem(): void {
+    if (this.parentId != null) {
+      this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE']]);
+    } else {
+      this.router.navigate([this.route['ROUTE']]);
+    }
+  }
+
+  public updateItem(): void {
+    if (this.parentId != null) {
+      this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE'], this.selected.id]);
+    } else {
+      this.router.navigate([this.route['ROUTE'], this.selected.id]);
+    }
+  }
+
+  public showItem(): void {
+    this.router.navigate([this.route['ROUTE'], this.selected.id], { queryParams: { readOnly: true } });
+  }
+
+  public showChildren(selected: ModelBase): void {
+    let parentRoute = this.route['ROUTE'];
+    let childrenRoute = this.route['CHILDREN_ROUTE'];
+    this.router.navigate([parentRoute, selected.id, childrenRoute]);
+  }
+
+  public removeItem(): void {
+    // this.confirmationService.confirm(
+    //   {
+    //       header: this.translate.instant('MESSAGE_CONFIRM_TITLE'),
+    //       message: this.translate.instant('MESSAGE_CONFIRM_DELETE'),
+    //       icon: 'fa ui-icon-warning',
+    //       accept: () =>
+    //       {
+    //         this.service.delete(this.selected).then(response => {
+    //           if (response.ok) {
+    //             this.items.splice(this.items.indexOf(this.selected), 1);
+    //             this.selected = null;
+    //             this.dataTable.reset();
+    //           }
+    //         });
+    //       }
+    //   });
+  }
+
+  public selectItem(item): void {
+    this.selected = item;
+  }
+
+  public back(): void {
+    this.location.back();
+  }
+}

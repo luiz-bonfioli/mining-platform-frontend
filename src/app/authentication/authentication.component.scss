@@ -1,0 +1,46 @@
+.login-form {
+    align-items: flex-start;
+    margin-left: 200px;
+    max-width: 280px;
+}
+
+.login-left {    
+    justify-content: center;
+    flex-grow: 5;
+    height: 100vh;
+}
+
+.login-right {
+    flex-grow: 6;    
+    justify-content: center;
+    background-image: url("../../assets/images/login.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.login-welcome {
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    font-size: 3.0625rem;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;    
+    line-height: 4.0625rem;
+    letter-spacing: normal;
+    color: #fff;
+    margin-bottom: 30px;
+    margin-left: 200px;
+    max-width: 300px;
+}
+
+.login-welcome-detail {
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);    
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;    
+    letter-spacing: normal;
+    color: #fff;    
+    margin-left: 200px;
+    max-width: 500px;
+}

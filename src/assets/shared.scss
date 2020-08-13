@@ -1,0 +1,32 @@
+body {
+    background-color: #f5f9fd;
+    font-family: $font-family-default;
+}
+
+h1 {
+    font-size: 20px;
+    font-weight: $font-weight-extra-bold;    
+    color: $blue2;
+}
+
+label {    
+    font-size: $font-size-sm;
+    color: $gray-7;
+    font-weight: $font-weight-extra-bold;
+}
+
+.flex-container {
+    display: flex;    
+}
+
+.flex-column {
+    flex-direction: column;
+}  
+
+.mb-1{
+    margin-bottom: 0.125rem;
+}
+
+.mb-4{
+    margin-bottom: 0.5rem;
+}

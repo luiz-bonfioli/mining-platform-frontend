@@ -1,0 +1,6 @@
+<!-- The Action Menu component -->
+<app-menu title="TITLE_MATERIAL_LIST" [items]="menuItems"></app-menu>
+
+<div *ngFor="let material of items">
+  <mat-card (click)="selectItem(material)">{{ material.name }}</mat-card>
+</div>

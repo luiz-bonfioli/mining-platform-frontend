@@ -1,0 +1,34 @@
+.btn {
+  outline-width: 0;
+  display: inline-flex;  
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  min-width: 92px;
+  font-weight: normal;
+  font-size: 0.875rem;
+  font-family: $font-family-default;
+  height: 36px;  
+  letter-spacing: normal;
+  text-align: center;
+  color: $gray-1;
+  padding: $btn-padding-y $btn-padding-x;
+  border-radius: $border-radius-default;
+  cursor: pointer;
+  &:disabled {
+    opacity: 0.8;
+    background-color: $gray-2;
+    color: $gray-5;
+    cursor: default;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.btn-primary {
+  background: $blue1; 
+}

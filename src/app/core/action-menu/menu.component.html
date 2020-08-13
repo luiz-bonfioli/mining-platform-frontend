@@ -1,0 +1,13 @@
+<div class="ui-helper-clearfix">
+  <div class="ui-toolbar-group-left">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <div class="ui-toolbar-group-right">
+    <ng-template ngFor let-item let-i="index" [ngForOf]="items">
+      <button mat-fab color="primary" (click)="item.action()">
+        <mat-icon>{{ item.icon }}</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+</div>

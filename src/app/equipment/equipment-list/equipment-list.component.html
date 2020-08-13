@@ -1,0 +1,6 @@
+<!-- The Action Menu component -->
+<app-menu title="TITLE_EQUIPMENT_LIST" [items]="menuItems"></app-menu>
+
+<div *ngFor="let equipment of items">
+  <mat-card>{{ equipment.name }}</mat-card>
+</div>
