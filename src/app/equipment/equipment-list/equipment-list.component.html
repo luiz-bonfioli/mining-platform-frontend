@@ -1,5 +1,9 @@
-<!-- The Action Menu component 
-<app-menu title="TITLE_EQUIPMENT_LIST" [items]="menuItems"></app-menu>-->
+<!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
+  <div *cdkVirtualFor="let item of ds" class="example-item">{{item || 'Loading...'}}</div>
+</cdk-virtual-scroll-viewport> -->
+
+
+
 <button mat-raised-button (click)="toggleNewItem()">New</button>
 <mat-chip-list>
   <mat-chip *ngFor="let category of equipmentCategories" >{{ category }}</mat-chip>
