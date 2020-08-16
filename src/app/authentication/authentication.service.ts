@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthenticationService extends Service {
-  
+
   public currentUser: User;
 
   constructor(injector: Injector) {
@@ -18,13 +18,11 @@ export class AuthenticationService extends Service {
   }
 
   public authenticate(login: string, password: string): Observable<User> {
-
     let credentials = new Credentials();
     credentials.login = login;
     credentials.password = password;
 
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.httpClient.post<User>(this.resource['RESOURCE'], credentials, { headers: headers }).pipe(map(response => response as User));
-    
   }
 }

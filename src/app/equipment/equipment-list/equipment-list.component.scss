@@ -1,0 +1,14 @@
+* {box-sizing:border-box;}
+
+.equipment-card {
+    max-width: 200px;
+    min-width: 200px;
+    min-height: 100px;
+    margin: 20px 0px 0px 20px;
+    float: left;
+  }
+
+  .equipment-card-new {
+    border: dashed 1px;
+
+  }

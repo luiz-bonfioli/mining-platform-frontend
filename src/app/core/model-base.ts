@@ -1,3 +1,3 @@
 export interface ModelBase {
-  id: number;
+  id: string;
 }

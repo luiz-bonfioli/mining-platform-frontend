@@ -1,6 +1,17 @@
-<!-- The Action Menu component -->
-<app-menu title="TITLE_EQUIPMENT_LIST" [items]="menuItems"></app-menu>
-
-<div *ngFor="let equipment of items">
-  <mat-card>{{ equipment.name }}</mat-card>
+<!-- The Action Menu component 
+<app-menu title="TITLE_EQUIPMENT_LIST" [items]="menuItems"></app-menu>-->
+<button mat-raised-button (click)="toggleNewItem()">New</button>
+<mat-chip-list>
+  <mat-chip *ngFor="let category of equipmentCategories" >{{ category }}</mat-chip>
+  <!-- <mat-chip *ngFor="let category of equipmentCategories" color="primary" selected>One fish</mat-chip> -->
+ 
+</mat-chip-list>
+<div>
+  <mat-card *ngIf="newItem" class="equipment-card equipment-card-new">
+    <button mat-raised-button (click)="toggleNewItem()">Save</button>
+  </mat-card>
+  <div *ngFor="let equipment of items">
+    <mat-card class="equipment-card">{{ equipment.name }}</mat-card>
+  </div>
 </div>
+
