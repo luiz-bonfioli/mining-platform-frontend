@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import { Injector, Directive } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, FormControl, Form } from '@angular/forms';
 /**
  * 
  */
+@Directive()
 export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S extends ServiceBase<M>>
 {
   protected currentItem: M;

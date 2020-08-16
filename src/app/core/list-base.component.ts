@@ -1,4 +1,4 @@
-import { Injector, OnInit } from '@angular/core';
+import { Injector, OnInit, Directive } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -8,6 +8,7 @@ import { MenuItem } from './action-menu/menu-item';
 import { ContextService } from './context/context.service';
 import { DataResponse } from './data-response';
 
+@Directive()
 export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> implements OnInit {
   /**
    *  Pagination setup
