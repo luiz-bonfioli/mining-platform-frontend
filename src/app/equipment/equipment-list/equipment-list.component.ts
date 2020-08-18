@@ -2,7 +2,9 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { Equipment } from '../equipment';
 import { ListBase } from 'src/app/core/list-base.component';
 import { EquipmentService } from '../equipment.service';
+import { CategoryService } from '../category/category.service';
 import { Routes } from 'src/app/core/routes';
+import { Category } from '../category/category';
 
 @Component({
   selector: 'app-equipment-list',
@@ -11,8 +13,19 @@ import { Routes } from 'src/app/core/routes';
 })
 export class EquipmentListComponent extends ListBase<Equipment, EquipmentService> {
 
-  constructor(service: EquipmentService, injector: Injector) {
+  categories: Category[]
+
+  constructor(service: EquipmentService, private categoryService: CategoryService, injector: Injector) {
 		super(service, { "ROUTE": Routes.EQUIPMENT_ROUTE }, injector);
+  }
+
+  onLoad() {
+    super.onLoad();
+    this.loadCategories();
+  }
+
+  loadCategories(){
+    this.categoryService.findAll().subscribe(categories => this.categories = categories);
   }
  
 }

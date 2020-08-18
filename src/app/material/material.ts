@@ -1,6 +1,6 @@
-import { NamedModelBase } from './../core/named-model-base';
+import { ModelBase } from './../core/model-base';
 
-export class Material implements NamedModelBase {
+export class Material implements ModelBase {
   
   id: string;
   name: string;

@@ -1,7 +1,7 @@
 <app-menu title="Equipments" [items]="menuItems"></app-menu>
 
 <mat-chip-list>
-  <!-- <mat-chip *ngFor="let category of equipmentCategories" >{{ category }}</mat-chip>  -->
+  <mat-chip *ngFor="let category of categories">{{ category.name }}</mat-chip>
 </mat-chip-list>
 <div>
   <!-- <mat-card *ngIf="newItem" class="equipment-card equipment-card-new">

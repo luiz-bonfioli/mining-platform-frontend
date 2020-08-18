@@ -42,6 +42,7 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
     this.fetchItem();
     this.fetchParent();
     this.createMenu();
+    this.onLoad();
   }
 
   protected createForm(): void{
@@ -122,13 +123,13 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   private fetchIdParameter(params: Params): void {
     if (params['id'] !== undefined) {
-      this.id = +params['id'];
+      this.id = params['id'];
     }
   }
 
   private fetchParentIdParameter(params: Params): void {
     if (params['parentId'] !== undefined) {
-      this.parentId = +params['parentId'];
+      this.parentId = params['parentId'];
     }
   }
 
@@ -142,6 +143,9 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
   }
 
   protected afterSave(): void { }
+
+  
+  protected onLoad(): void {  }
 
   public back(): void {
     this.location.back();

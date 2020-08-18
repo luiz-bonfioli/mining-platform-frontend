@@ -9,6 +9,15 @@
     <mat-form-field>
       <input matInput formControlName="shortName" />
     </mat-form-field>
+    <mat-form-field>
+      <p>Category</p>
+      <!-- <mat-label>Category</mat-label> -->
+      <mat-select formControlName="category" [(value)]="selectedCategory">
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{category.name}}
+        </mat-option>
+      </mat-select>      
+    </mat-form-field>
   </div>
   <div mat-dialog-actions>
     <!-- <button mat-button >Cancel</button>

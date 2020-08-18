@@ -37,7 +37,11 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   ngOnInit(): void {
     this.fetchRouteParameters();
     this.createMenu();
-    this.service.findAll().subscribe(equipments => (this.items = equipments));
+    this.onLoad();    
+  }
+
+  protected onLoad(): void {
+    this.service.findAll().subscribe(items => this.items = items);
   }
 
   protected createMenu(): void {
