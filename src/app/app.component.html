@@ -1,22 +1,23 @@
-<mat-toolbar>
-  <button mat-icon-button (click)="menu.toggle()"><mat-icon>menu</mat-icon></button>
-  <h1 class="example-app-name">Responsive App</h1>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="menu.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
       
 <mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #menu  mode="side" opened>
+    <mat-sidenav #menu mode="side" opened>
 
       <mat-nav-list class="mat-nav-list">
           <mat-list-item routerLink="/equipment/list">
-              <mat-icon mat-list-icon>info</mat-icon>
+              <mat-icon mat-list-icon>airport_shuttle</mat-icon>
               <a mat-line>Equipments</a>
           </mat-list-item>
           <mat-list-item routerLink="/material/list">
-              <mat-icon mat-list-icon>info</mat-icon>
+              <mat-icon mat-list-icon>all_inbox</mat-icon>
               <a mat-line>Materials</a>
           </mat-list-item>
           <mat-list-item routerLink=".">
-              <mat-icon mat-list-icon>info</mat-icon>
+              <mat-icon mat-list-icon>account_box</mat-icon>
               <a mat-line>Users</a>
           </mat-list-item>
       </mat-nav-list>
@@ -24,7 +25,9 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <div class="sidenav-content">
+        <router-outlet></router-outlet>
+      </div>
     </mat-sidenav-content>
     
   </mat-sidenav-container> 

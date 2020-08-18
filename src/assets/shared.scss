@@ -21,7 +21,17 @@ label {
 
 .flex-column {
     flex-direction: column;
-}  
+}
+
+.flex-end {
+    display: flex; 
+    justify-content: flex-end;
+}
+
+.flex-space-between {
+    display: flex; 
+    justify-content: space-between;
+}
 
 .mb-1{
     margin-bottom: 0.125rem;

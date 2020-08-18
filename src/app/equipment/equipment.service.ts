@@ -8,6 +8,6 @@ import { Equipment } from './equipment';
 })
 export class EquipmentService extends ServiceBase<Equipment> {
   constructor(injector: Injector) {
-    super({ RESOURCE: 'rest/equipment' }, injector);
+    super({ RESOURCE: 'equipment' }, injector);
   }
 }

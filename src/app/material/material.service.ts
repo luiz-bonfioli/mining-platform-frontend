@@ -9,5 +9,5 @@ import { Material } from './material';
 })
 export class MaterialService extends ServiceBase<Material>
 {
-  constructor(injector: Injector) { super({ 'RESOURCE': 'rest/material' }, injector); }
+  constructor(injector: Injector) { super({ 'RESOURCE': 'material' }, injector); }
 }

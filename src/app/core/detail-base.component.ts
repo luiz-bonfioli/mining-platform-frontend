@@ -77,7 +77,7 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
     this.service.save(this.currentItem).subscribe(item => {
       this.currentItem = item;
       this.afterSave();
-      //this.back();
+      this.back();
     });
   }
 
@@ -142,4 +142,8 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
   }
 
   protected afterSave(): void { }
+
+  public back(): void {
+    this.location.back();
+  }
 }
