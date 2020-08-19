@@ -20,7 +20,7 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
   private readOnly: boolean;
   private id: number = null;
   private parentId: number = null;
-  private menuItems: MenuItem[];  
+  public menuItems: MenuItem[];  
   
   public formDetail: FormGroup;
 
@@ -45,27 +45,31 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
     this.onLoad();
   }
 
-  protected createForm(): void{
-    this. formDetail = this.formBuilder.group(this.createFormControls());
+  compareWith(source: ModelBase, target: ModelBase): boolean {
+    return source && target ? source.id === target.id : source === target;
   }
 
-  protected abstract createFormControls(): Map<string, FormGroup | FormControl>;
+  protected createForm(): void {
+    this.formDetail = this.createFormGroup();
+  }
+
+  protected abstract createFormGroup(): FormGroup;
 
   //public abstract createFormControls(): FormControl[];
 
   protected createMenu(): void {
-    // let backMenu = new MenuItem();
-		// backMenu.icon = 'ui-icon-arrow-back';
-		// backMenu.class = 'green-btn';
-    // backMenu.action = () => this.back();
-    
+    let backMenu = new MenuItem();
+		backMenu.icon = 'backspace';
+		backMenu.class = 'green-btn';
+    backMenu.action = () => this.back();
+
     let saveMenu = new MenuItem();
-		saveMenu.icon = 'ui-icon-save';
+		saveMenu.icon = 'save';
 		saveMenu.class = 'green-btn';
     saveMenu.action = () => this.save();
-    
+
     this.menuItems = new Array<MenuItem>();
-   // this.addMenuItem(backMenu);
+    this.addMenuItem(backMenu);
     this.addMenuItem(saveMenu);
   }
 

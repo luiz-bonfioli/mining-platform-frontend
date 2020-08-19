@@ -6,9 +6,13 @@ import { MenuItem } from './menu-item';
   templateUrl: './menu.component.html'
 })
 export class MenuComponent {
+
   @Input()
   public title: string;
 
   @Input()
   public items: MenuItem[];
+
+  @Input()
+  public formInvalid: boolean;
 }

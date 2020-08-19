@@ -1,27 +1,27 @@
-<form [formGroup]="formDetail">
-  <h1>Equipment</h1>
-  <div mat-dialog-content>
-    <p>Name</p>
-    <mat-form-field>
+<app-menu [formInvalid]="formDetail.invalid" title="Equipment" [items]="menuItems"></app-menu>
+
+<form [formGroup]="formDetail">  
+  <div>
+    <mat-form-field appearance="standard">
+      <mat-label>Name</mat-label>
       <input matInput formControlName="name" />
     </mat-form-field>
-    <p>Short Name</p>
-    <mat-form-field>
+    <br>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Short Name</mat-label>
       <input matInput formControlName="shortName" />
     </mat-form-field>
-    <mat-form-field>
-      <p>Category</p>
-      <!-- <mat-label>Category</mat-label> -->
-      <mat-select formControlName="category" [(value)]="selectedCategory">
-        <mat-option *ngFor="let category of categories" [value]="category.id">
+    <br>
+  
+    <mat-form-field>      
+      <mat-label>Category</mat-label>      
+      <mat-select formControlName="category" [compareWith]="compareWith" >
+        <mat-option *ngFor="let category of categories" [value]="category">
           {{category.name}}
         </mat-option>
       </mat-select>      
     </mat-form-field>
-  </div>
-  <div mat-dialog-actions>
-    <!-- <button mat-button >Cancel</button>
-    <button mat-button mat-dialog-close cdkFocusInitial (click)="save()">Save</button> -->
-    <button (click)="save()">Save</button>
+
   </div>
 </form>

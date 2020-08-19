@@ -19,6 +19,10 @@ label {
     display: flex;    
 }
 
+.flex-wrap {
+    flex-wrap: wrap;  
+}
+
 .flex-column {
     flex-direction: column;
 }
@@ -31,6 +35,14 @@ label {
 .flex-space-between {
     display: flex; 
     justify-content: space-between;
+}
+
+.m-1{
+    margin: 0.125rem !important;
+}
+
+.m-4{
+    margin: 0.5rem !important;
 }
 
 .mb-1{

@@ -7,6 +7,8 @@ import { ServiceBase } from './service-base';
 import { MenuItem } from './action-menu/menu-item';
 import { ContextService } from './context/context.service';
 import { DataResponse } from './data-response';
+import { Direction } from './direction.enum';
+import { PageEvent } from '@angular/material/paginator';
 
 @Directive()
 export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> implements OnInit {
@@ -21,7 +23,6 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
    * ListBase properties
    */
   public items: M[];
-  public selected: M;
   public parent: ModelBase;
 
   private parentId: number = null;
@@ -37,21 +38,21 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   ngOnInit(): void {
     this.fetchRouteParameters();
     this.createMenu();
-    this.onLoad();    
+    this.onLoad();
   }
 
   protected onLoad(): void {
-    this.service.findAll().subscribe(items => this.items = items);
+    this.fetchItems(this.currentPage, this.maxPerPage, [], Direction.ASC, []);
   }
 
   protected createMenu(): void {
     this.menuItems = new Array<MenuItem>();
 
-    let backMenu = new MenuItem();
-    backMenu.icon = 'clear';
-    backMenu.class = 'green-btn';
-    backMenu.action = () => this.back();
-    this.addMenuItem(backMenu);
+    // let backMenu = new MenuItem();
+    // backMenu.icon = 'clear';
+    // backMenu.class = 'green-btn';
+    // backMenu.action = () => this.back();
+    // this.addMenuItem(backMenu);
 
     let newMenu = new MenuItem();
     newMenu.icon = 'add';
@@ -59,17 +60,17 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     newMenu.action = () => this.newItem();
     this.addMenuItem(newMenu);
 
-    let updateMenu = new MenuItem();
-    updateMenu.icon = 'create';
-    updateMenu.class = 'green-btn';
-    updateMenu.action = () => this.updateItem();
-    this.addMenuItem(updateMenu);
+    // let updateMenu = new MenuItem();
+    // updateMenu.icon = 'create';
+    // updateMenu.class = 'green-btn';
+    // updateMenu.action = () => this.updateItem();
+    // this.addMenuItem(updateMenu);
 
-    let removeMenu = new MenuItem();
-    removeMenu.icon = 'delete';
-    removeMenu.class = 'red-btn';
-    removeMenu.action = () => this.removeItem();
-    this.addMenuItem(removeMenu);
+    // let removeMenu = new MenuItem();
+    // removeMenu.icon = 'delete';
+    // removeMenu.class = 'red-btn';
+    // removeMenu.action = () => this.removeItem();
+    // this.addMenuItem(removeMenu);
   }
 
   protected addMenuItem(item: MenuItem): void {
@@ -93,17 +94,12 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     }
   }
 
-  // private fetchList(event: LazyLoadEvent): void {
-  //   if (this.parentId !== null) {
-  //     this.fetchChildren(event.first, event.rows, event.sortOrder, event.sortField, this.parentId);
-  //   }
-  //   else {
-  //     this.fetchItems(event.first, event.rows, event.sortOrder, event.sortField, event.globalFilter);
-  //   }
-  // }
-
-  public fetchItems(startingAt: number, maxPerPage: number, sortOrder: number, sortField: string, globalFilter: string): void {
-    this.service.fetchItems(startingAt, maxPerPage, sortOrder, sortField, globalFilter).subscribe(response => this.parseResponse(response));
+  public onPageChanged(event: PageEvent){
+    this.fetchItems(event.pageIndex, event.pageSize, [], Direction.ASC, []);
+  }
+    
+  public fetchItems(page: number, size: number, sort: string[], direction: string, search: string[]): void {
+    this.service.fetchItems(page, size, sort, direction, search).subscribe(response => this.parseResponse(response));
   }
 
   public fetchChildren(startingAt: number, maxPerPage: number, sortOrder: number, sortField: string, parentId: number): void {
@@ -129,16 +125,12 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     }
   }
 
-  public updateItem(): void {
+  public updateItem(selected: M): void {
     if (this.parentId != null) {
-      this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE'], this.selected.id]);
+      this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE'], selected.id]);
     } else {
-      this.router.navigate([this.route['ROUTE'], this.selected.id]);
+      this.router.navigate([this.route['ROUTE'], selected.id]);
     }
-  }
-
-  public showItem(): void {
-    this.router.navigate([this.route['ROUTE'], this.selected.id], { queryParams: { readOnly: true } });
   }
 
   public showChildren(selected: ModelBase): void {
@@ -164,10 +156,6 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     //         });
     //       }
     //   });
-  }
-
-  public selectItem(item): void {
-    this.selected = item;
   }
 
   public back(): void {

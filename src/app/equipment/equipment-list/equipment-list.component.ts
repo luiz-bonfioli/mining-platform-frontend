@@ -27,5 +27,14 @@ export class EquipmentListComponent extends ListBase<Equipment, EquipmentService
   loadCategories(){
     this.categoryService.findAll().subscribe(categories => this.categories = categories);
   }
+
+  findByCategory(category: Category){
+    if(category){
+      this.service.findByCategoryId(category.id).subscribe(equipments => this.items = equipments);
+    }
+    else{
+      super.onLoad();
+    }
+  }
  
 }

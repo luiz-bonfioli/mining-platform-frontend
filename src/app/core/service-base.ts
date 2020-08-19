@@ -1,28 +1,26 @@
-import { Service } from './service';
-import { ModelBase } from './model-base';
-import { DataResponse } from './data-response';
+import { HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { DataResponse } from './data-response';
+import { ModelBase } from './model-base';
+import { Service } from './service';
+import { Direction } from './direction.enum';
 
 export class ServiceBase<M extends ModelBase> extends Service {
-  
-  public fetchItems(
-    startingAt: number,
-    maxPerPage: number,
-    sortOrder: number,
-    sortField: string,
-    globalFilter: string
-  ): Observable<DataResponse<M>> {
-    const params: HttpParams = new HttpParams();
-    params.set('startingAt', startingAt.toString());
-    params.set('maxPerPage', maxPerPage.toString());
-    params.set('sort', sortOrder.toString());
-    params.set('field', sortField ? sortField : '');
-    params.set('globalFilter', globalFilter ? globalFilter : '');
+
+  public fetchItems(page: number, size: number, sort: string[] = ['id'], direction: string = Direction.ASC, search: string[] = []): Observable<DataResponse<M>> {
+    let params: HttpParams = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('direction', direction);
+
+    sort.map(sort => params = params.append('sort', sort));
+    search.map(search => params = params.append('search', search));
+
     const response = this.httpClient
-      .get<M[]>(this.resource['RESOURCE'], { params: params, observe: 'response' })
-      .pipe(map(response => new DataResponse<M>(response.body as M[], +response.headers.get('X-Pagination-Count'))));
+      .get<M[]>(`${this.resource['RESOURCE']}/find-by-params`, { params: params, observe: 'response' })
+      .pipe(map(response => new DataResponse<M>(response.body as M[], +response.headers.get('X-Total-Elements'))));
+
     return response;
   }
 
@@ -46,7 +44,7 @@ export class ServiceBase<M extends ModelBase> extends Service {
 
     let response = this.httpClient
       .get<M[]>(`${this.resource['RESOURCE']}/children`, { params: params, observe: 'response' })
-      .pipe(map(response => new DataResponse<M>(response.body as M[], +response.headers.get('X-Pagination-Count'))));
+      .pipe(map(response => new DataResponse<M>(response.body as M[], +response.headers.get('X-Total-Elements'))));
     return response;
   }
 

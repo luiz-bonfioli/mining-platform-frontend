@@ -2,7 +2,7 @@ import { Component, Inject, Injector } from '@angular/core';
 import { Equipment } from '../equipment';
 import { DetailBase } from 'src/app/core/detail-base.component';
 import { EquipmentService } from '../equipment.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Category } from '../category/category';
 import { CategoryService } from '../category/category.service';
 
@@ -14,20 +14,18 @@ import { CategoryService } from '../category/category.service';
 export class EquipmentDetailComponent extends DetailBase<Equipment, EquipmentService> {
 
   categories: Category[];
-  selectedCategory: Category;
 
   constructor(service: EquipmentService, private categoryService: CategoryService, injector: Injector) {
     super(service, Equipment, injector);
   }
 
-  public createFormControls(): Map<string, FormGroup | FormControl> {
-    let map = new Map<string, FormGroup | FormControl>();
-    map['id'] = new FormControl();
-    map['name'] = new FormControl();
-    map['shortName'] = new FormControl();
-    map['category'] = new FormControl();
-
-    return map;
+  public createFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      id: [''],
+      name: ['', Validators.required],
+      shortName: ['', Validators.required],
+      category: ['', Validators.required],
+    }); 
   }
 
   onLoad() {
@@ -38,11 +36,5 @@ export class EquipmentDetailComponent extends DetailBase<Equipment, EquipmentSer
   loadCategories(){
     this.categoryService.findAll().subscribe(categories => this.categories = categories);
   }
-
-  beforeSave(): void {
-    super.beforeSave();
-    this.currentItem.category = { id: "99734a99-d61c-4238-b564-31dc7eb39261", name: "Category Test" };
-  }
-
 
 }

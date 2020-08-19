@@ -5,7 +5,7 @@
 
   <div>
     <ng-template ngFor let-item let-i="index" [ngForOf]="items">
-      <button mat-raised-button (click)="item.action()">
+      <button [disabled]="formInvalid" class="m-1" mat-raised-button (click)="item.action()">
         <mat-icon>{{ item.icon }}</mat-icon>
       </button>
     </ng-template>
