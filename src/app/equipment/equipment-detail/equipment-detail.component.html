@@ -1,26 +1,50 @@
 <app-menu [formInvalid]="formDetail.invalid" title="Equipment" [items]="menuItems"></app-menu>
 
-<form [formGroup]="formDetail">  
+<form [formGroup]="formDetail">
   <div>
     <mat-form-field appearance="standard">
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" />
+      <input matInput formControlName="name" required />
     </mat-form-field>
     <br>
 
     <mat-form-field appearance="standard">
       <mat-label>Short Name</mat-label>
-      <input matInput formControlName="shortName" />
+      <input matInput formControlName="shortName" required />
     </mat-form-field>
     <br>
-  
-    <mat-form-field>      
-      <mat-label>Category</mat-label>      
-      <mat-select formControlName="category" [compareWith]="compareWith" >
+
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" [compareWith]="compareWith" required>
         <mat-option *ngFor="let category of categories" [value]="category">
           {{category.name}}
         </mat-option>
-      </mat-select>      
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+      <mat-label>Model</mat-label>
+      <mat-select formControlName="model" [compareWith]="compareWith" required>
+        <mat-option *ngFor="let model of models" [value]="model">
+          {{model.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Category</mat-label>
+      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+        <mat-option *ngIf="isLoading">Loading...</mat-option>
+        <ng-container *ngIf="!isLoading">
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{category.name}}
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
     </mat-form-field>
 
   </div>
