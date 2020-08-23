@@ -1,7 +1,21 @@
 
-.equipment-card {
-    max-width: 200px;
-    min-width: 200px;
-    min-height: 100px;
-    margin: 20px 20px 0px 0px;    
+.equipment-card {    
+    min-width: 120px;
+    height: 120px;
+    margin: 20px 20px 0px 0px;        
+  }
+
+  .example-viewport {
+    height: 420px;
+    width: 85vw;
+    //border: 1px solid black;   
+
+  }
+
+  // TODO when virtual scroll recycles the the view, flex will not work correctly, because the element will be removed
+  ::ng-deep{
+    .cdk-virtual-scroll-content-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
   }

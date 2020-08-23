@@ -13,6 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { CdkScrollableModule, ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContextService } from '../core/context/context.service';
 import { MenuComponent } from '../core/action-menu/menu.component';
@@ -37,7 +38,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatInputModule,
     MatChipsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    CdkScrollableModule,
+    ScrollingModule
   ],
   exports: [    
     HttpClientModule,
@@ -56,6 +59,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatChipsModule,
     MatPaginatorModule,
+    CdkScrollableModule,
+    ScrollingModule,
 
     MenuComponent
     
