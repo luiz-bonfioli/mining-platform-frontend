@@ -121,6 +121,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     if (this.parentId != null) {
       this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE']]);
     } else {
+      //this.router.navigate([this.route['ROUTE'], { relativeTo: this.route }]);
       this.router.navigate([this.route['ROUTE']]);
     }
   }

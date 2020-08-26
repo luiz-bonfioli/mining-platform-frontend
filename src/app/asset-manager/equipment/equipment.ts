@@ -1,4 +1,4 @@
-import { ModelBase } from './../core/model-base';
+import { ModelBase } from '../../core/model-base';
 import { Category } from './category/category';
 import { Model } from './model/model';
 

@@ -6,7 +6,13 @@
   background: none;
   list-style: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  overflow: hidden;
+  
+}
+
+body {    
+  background-color: #f5f9fd;
+  font-family: $font-family-default;
+  overflow: hidden;  
 }
 
 /* Change autocomplete styles in WebKit */

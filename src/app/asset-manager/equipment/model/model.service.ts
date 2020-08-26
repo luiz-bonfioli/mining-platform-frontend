@@ -1,5 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
-import { ServiceBase } from '../../core/service-base';
+import { ServiceBase } from '../../../core/service-base';
 import { Model } from './model';
 
 @Injectable({

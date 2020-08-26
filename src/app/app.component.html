@@ -1,33 +1,36 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button (click)="menu.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-      
-<mat-sidenav-container class="sidenav-container">
-    <mat-sidenav #menu mode="side" opened>
-
-      <mat-nav-list class="mat-nav-list">
-          <mat-list-item routerLink="/equipment/list">
-              <mat-icon mat-list-icon>airport_shuttle</mat-icon>
-              <a mat-line>Equipments</a>
-          </mat-list-item>
-          <mat-list-item routerLink="/material/list">
-              <mat-icon mat-list-icon>all_inbox</mat-icon>
-              <a mat-line>Materials</a>
-          </mat-list-item>
-          <mat-list-item routerLink=".">
-              <mat-icon mat-list-icon>account_box</mat-icon>
-              <a mat-line>Users</a>
-          </mat-list-item>
-      </mat-nav-list>
-      
-    </mat-sidenav>
-
-    <mat-sidenav-content>
-      <div class="sidenav-content">
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-    
-  </mat-sidenav-container> 
+<header class="app-header flex-space-between">
+<div>a</div>
+<div>Logout</div>
+</header>
+<!-- https://material.io/resources/icons/?icon=account_box&style=baseline -->
+<div class="app-menu">
+  <ul>
+    <li routerLink="/asset-manager">
+      <a class="menu-item">
+        <div class="menu-icon">          
+          <span class="material-icons">airport_shuttle</span>
+        </div>
+        Asset Manager
+      </a>
+    </li>
+    <li routerLink="/settings">
+      <a class="menu-item">
+        <div class="menu-icon">
+          <span class="material-icons">library_books</span>
+        </div>
+        Settings
+      </a>
+    </li>
+    <li routerLink=".">
+      <a class="menu-item">
+        <div class="menu-icon">
+          <span class="material-icons">face</span>
+        </div>
+        Users
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="app-content">
+  <router-outlet></router-outlet>
+</div>

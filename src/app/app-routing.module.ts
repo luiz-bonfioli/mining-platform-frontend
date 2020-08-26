@@ -13,17 +13,15 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard]
   },  
   {
-    path: 'equipment',
-    loadChildren: () => import('./equipment/equipment.module').then(mod => mod.EquipmentModule),
+    path: 'asset-manager',
+    loadChildren: () => import('./asset-manager/asset-manager.module').then(mod => mod.AssetManagerModule),    
     canActivate: [AuthenticationGuard]
   },
-
   {
-    path: 'material',
-    loadChildren: () => import('./material/material.module').then(mod => mod.MaterialModule),
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule),
     canActivate: [AuthenticationGuard]
-  },
-  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) }  
+  }  
 ];
 
 @NgModule({
