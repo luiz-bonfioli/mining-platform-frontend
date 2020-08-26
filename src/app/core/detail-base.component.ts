@@ -59,13 +59,15 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   protected createMenu(): void {
     let backMenu = new MenuItem();
+    backMenu.label = 'Back';
 		backMenu.icon = 'backspace';
-		backMenu.class = 'green-btn';
+	//	backMenu.class = 'green-btn';
     backMenu.action = () => this.back();
 
     let saveMenu = new MenuItem();
+    saveMenu.label = 'Save';
 		saveMenu.icon = 'save';
-		saveMenu.class = 'green-btn';
+		saveMenu.class = 'btn-primary';
     saveMenu.action = () => this.save();
 
     this.menuItems = new Array<MenuItem>();

@@ -70,16 +70,32 @@ label {
 
 .app-header {
     height: 60px;
-    background-color: #00b7d3;
+    background-color: $blue1;
 }
 
 .menu-icon {
     background: transparent;
     display: block;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     margin: 0 auto;
     margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-icon:hover {
+    color: #ffffff;
+    background: $blue1;
+    border-radius: 100px;
+}
+
+.menu-active-icon {
+    color: #ffffff;
+    background: $blue1;
+    border-radius: 100px;
+    border: none;
 }
 
 .menu-item {
@@ -90,6 +106,8 @@ label {
     text-align: center;
     cursor: pointer;
 }
+
+
 
 .app-menu {
     position: fixed;

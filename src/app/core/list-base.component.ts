@@ -55,8 +55,9 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     // this.addMenuItem(backMenu);
 
     let newMenu = new MenuItem();
-    newMenu.icon = 'add';
-    newMenu.class = 'green-btn';
+    newMenu.label = 'New';
+    newMenu.icon = 'add_circle';
+    newMenu.class = 'btn-primary';
     newMenu.action = () => this.newItem();
     this.addMenuItem(newMenu);
 

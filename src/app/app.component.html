@@ -1,32 +1,24 @@
 <header class="app-header flex-space-between">
-<div>a</div>
-<div>Logout</div>
+  <div>a</div>
+  <div>Logout</div>
 </header>
 <!-- https://material.io/resources/icons/?icon=account_box&style=baseline -->
 <div class="app-menu">
   <ul>
-    <li routerLink="/asset-manager">
+    <li routerLink="asset-manager">
       <a class="menu-item">
-        <div class="menu-icon">          
+        <div class="menu-icon" routerLinkActive="menu-active-icon">
           <span class="material-icons">airport_shuttle</span>
         </div>
-        Assets
+        <span>Assets</span>
       </a>
     </li>
-    <li routerLink="/settings">
+    <li routerLink="settings">
       <a class="menu-item">
-        <div class="menu-icon">
+        <div class="menu-icon" routerLinkActive="menu-active-icon">
           <span class="material-icons">settings</span>
         </div>
-        Settings
-      </a>
-    </li>
-    <li routerLink=".">
-      <a class="menu-item">
-        <div class="menu-icon">
-          <span class="material-icons">face</span>
-        </div>
-        Users
+        <span>Settings</span>
       </a>
     </li>
   </ul>

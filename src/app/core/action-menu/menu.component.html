@@ -5,8 +5,11 @@
 
   <div>
     <ng-template ngFor let-item let-i="index" [ngForOf]="items">
-      <button [disabled]="formInvalid" class="m-1" mat-raised-button (click)="item.action()">
-        <mat-icon>{{ item.icon }}</mat-icon>
+      <button [disabled]="formInvalid" class="btn {{item.class}}" mat-raised-button (click)="item.action()">
+        <div class="flex-space-between align-items-center">
+          <span class="mr-4">{{ item.label }}</span>
+          <span class="material-icons">{{ item.icon }}</span>
+        </div>
       </button>
     </ng-template>
   </div>
