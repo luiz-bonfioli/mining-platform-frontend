@@ -8,17 +8,14 @@
   </mat-chip-list>
 
   <div class="flex-container flex-wrap mb-4">
-    <mat-card (click)="updateItem(equipment)" *ngFor="let equipment of items" class="equipment-card">
+    <div (click)="updateItem(equipment)" *ngFor="let equipment of items" class="card equipment-card">
       <p>{{ equipment.name }}</p>
       <p>{{ equipment.category.name }}</p>
-    </mat-card>
-
-
+    </div>
   </div>
 
   <mat-paginator [length]="totalItems" [pageSize]="maxPerPage" [pageSizeOptions]="[5, 10, 15, 20, 100]"
     (page)="onPageChanged($event)">
   </mat-paginator>
-
 
 </div>
