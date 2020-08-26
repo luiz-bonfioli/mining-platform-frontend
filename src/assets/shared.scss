@@ -1,21 +1,21 @@
 h1 {
     font-size: 20px;
-    font-weight: $font-weight-extra-bold;    
+    font-weight: $font-weight-extra-bold;
     color: $blue2;
 }
 
-label {    
+label {
     font-size: $font-size-sm;
     color: $gray-7;
     font-weight: $font-weight-extra-bold;
 }
 
 .flex-container {
-    display: flex;    
+    display: flex;
 }
 
 .flex-wrap {
-    flex-wrap: wrap;  
+    flex-wrap: wrap;
 }
 
 .flex-column {
@@ -23,12 +23,12 @@ label {
 }
 
 .flex-end {
-    display: flex; 
+    display: flex;
     justify-content: flex-end;
 }
 
 .flex-space-between {
-    display: flex; 
+    display: flex;
     justify-content: space-between;
 }
 
@@ -36,67 +36,76 @@ label {
     align-items: center !important;
 }
 
-.m-1{
+.m-1 {
     margin: 2px !important;
 }
 
-.m-4{
+.m-4 {
     margin: 12px !important;
 }
 
-.mb-1{
+.mb-1 {
     margin-bottom: 2px;
 }
 
-.mb-4{
+.mb-4 {
     margin-bottom: 12px;
 }
 
-.mr-1{
+.mr-1 {
     margin-right: 2px;
 }
 
-.mr-4{
+.mr-4 {
     margin-right: 12px;
 }
 
 .app-content {
-    height: calc(100vh - 84px);;
-    padding: 12px 12px 12px 100px;         
+    height: calc(100vh - 84px);
+    padding: 12px 12px 12px 100px;
     overflow-x: hidden;
-    background-color: #f5f9fd;      
+    background-color: #f5f9fd;
     z-index: 0;
-  }
-  
-.app-header {    
+}
+
+.app-header {
     height: 60px;
     background-color: #00b7d3;
-  }
-  
+}
+
 .menu-icon {
     background: transparent;
     display: block;
     width: 32px;
     height: 32px;
     margin: 0 auto;
-    margin-bottom: 8px;  
-  }
-  
+    margin-bottom: 8px;
+}
+
 .menu-item {
     font-size: 0.75rem;
     color: #8c9eb7;
-     margin-bottom: 20px;
-     display: block;
-  }
-  
+    margin-bottom: 20px;
+    display: block;
+}
+
 .app-menu {
-  position: fixed;
-  left: 0;
-  top: 60px;
-  height: 100%;
-  background: #fff;
-  padding-top: 22px;
-  width: 80px;
-  padding-bottom: 48px;
-  box-shadow: 8px 0px 8px 0px rgba(44, 61, 86, 0.15);
+    position: fixed;
+    left: 0;
+    top: 60px;
+    height: 100%;
+    background: #fff;
+    padding-top: 22px;
+    width: 80px;
+    padding-bottom: 48px;
+    box-shadow: 8px 0px 8px 0px rgba(44, 61, 86, 0.15);
+}
+
+.divider {
+    display: block;
+    margin: 0px 0px 20px 0px;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgba(0, 0, 0, 0.05);
+    width: 100%;
 }

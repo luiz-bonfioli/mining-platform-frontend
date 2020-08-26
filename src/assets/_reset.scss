@@ -6,13 +6,12 @@
   background: none;
   list-style: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  
 }
 
-body {    
+body {
   background-color: #f5f9fd;
   font-family: $font-family-default;
-  overflow: hidden;  
+  overflow: hidden;
 }
 
 /* Change autocomplete styles in WebKit */
@@ -25,15 +24,20 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
-  border: 1px solid green;  
+  border: 1px solid green;
   box-shadow: none;
   transition: background-color 5000s ease-in-out 0s;
 }
 
 input,
 textarea,
-select {
+select,
+li {
   /* fix ios 6  native styles */
   -webkit-appearance: none !important;
   border-radius: 0;
+}
+
+li:focus {
+  outline: none;
 }

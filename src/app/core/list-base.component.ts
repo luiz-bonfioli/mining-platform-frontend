@@ -16,7 +16,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
    *  Pagination setup
    */
   public currentPage: number = 1;
-  public maxPerPage: number = 10;
+  public maxPerPage: number = 20;
   public totalItems: number;
 
   /**
@@ -33,7 +33,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   protected activatedRoute: ActivatedRoute = this.injector.get(ActivatedRoute);
   protected context: ContextService = this.injector.get(ContextService);
 
-  constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector) {}
+  constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector) { }
 
   ngOnInit(): void {
     this.fetchRouteParameters();
@@ -94,10 +94,10 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     }
   }
 
-  public onPageChanged(event: PageEvent){
+  public onPageChanged(event: PageEvent) {
     this.fetchItems(event.pageIndex, event.pageSize, [], Direction.ASC, []);
   }
-    
+
   public fetchItems(page: number, size: number, sort: string[], direction: string, search: string[]): void {
     this.service.fetchItems(page, size, sort, direction, search).subscribe(response => this.parseResponse(response));
   }

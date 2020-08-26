@@ -1,5 +1,5 @@
 export class Routes {
-  public static readonly EQUIPMENT_ROUTE = 'equipment';
+  public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   public static readonly EQUIPMENT_TYPE_ROUTE = 'equipment-type';
   public static readonly EQUIPMENT_MODEL_ROUTE = 'equipment-model';
   public static readonly CHECKLIST_ROUTE = 'checklist';

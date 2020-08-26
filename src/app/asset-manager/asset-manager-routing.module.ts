@@ -9,7 +9,11 @@ const routes: Routes = [
     component: AssetManagerComponent,
     children: [
       {
-        path: 'equipment-list', loadChildren: () => import('./equipment/equipment.module').then(mod => mod.EquipmentModule),
+        path: 'equipment', loadChildren: () => import('./equipment/equipment.module').then(mod => mod.EquipmentModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'equipment-detail', loadChildren: () => import('./equipment/equipment.module').then(mod => mod.EquipmentModule),
         canActivate: [AuthenticationGuard]
       }
     ]

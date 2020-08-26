@@ -1,32 +1,32 @@
-<div class="container-sub-menu">
-  <div class="card mr-4">
+<div class="container-internal-menu">
+  <div class="card internal-menu mr-4">
 
-    <h1>Assets</h1>
+    <h1 class="mb-4">Assets</h1>
 
     <ul>
-      <li routerLink="equipment-list">
+      <li routerLink="equipment" class="internal-menu-item" routerLinkActive="internal-menu-active-item">
         <a class="flex-space-between">
           <div class="flex-space-between align-items-center">
-            <span class="material-icons">airport_shuttle</span>
+            <span class="material-icons mr-4">airport_shuttle</span>
             <span>Equipments</span>
           </div>
           <span class="material-icons">chevron_right</span>
         </a>
       </li>
-      <li routerLink="material">
+      <li routerLink="equipment-detail" class="internal-menu-item" routerLinkActive="internal-menu-active-item">
         <a class="flex-space-between">
           <div class="flex-space-between align-items-center">
-            <span class="material-icons">airport_shuttle</span>
-            <span>Material</span>
+            <span class="material-icons mr-4">airport_shuttle</span>
+            <span>Equipments</span>
           </div>
           <span class="material-icons">chevron_right</span>
         </a>
       </li>
-      <li routerLink=".">
+      <li routerLink="user" class="internal-menu-item" routerLinkActive="internal-menu-active-item">
         <a class="flex-space-between">
           <div class="flex-space-between align-items-center">
-            <span class="material-icons">airport_shuttle</span>
-            <span>.</span>
+            <span class="material-icons mr-4">airport_shuttle</span>
+            <span>Equipments</span>
           </div>
           <span class="material-icons">chevron_right</span>
         </a>
@@ -34,7 +34,7 @@
     </ul>
   </div>
 
-  <div>
+  <div class="internal-container">
     <router-outlet></router-outlet>
   </div>
 
