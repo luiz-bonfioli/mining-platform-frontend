@@ -15,7 +15,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   /**
    *  Pagination setup
    */
-  public currentPage: number = 1;
+  public currentPage: number = 0;
   public maxPerPage: number = 20;
   public totalItems: number;
 
@@ -39,6 +39,10 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.fetchRouteParameters();
     this.createMenu();
     this.onLoad();
+  }
+
+  public search(input: string): void {    
+    this.fetchItems(0, this.maxPerPage, [], Direction.ASC, [`name:${input}`]);
   }
 
   protected onLoad(): void {

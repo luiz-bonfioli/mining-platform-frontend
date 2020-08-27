@@ -5,7 +5,7 @@
 
   <div class="flex-container">
     <div class="flex-space-between align-items-center search-container mr-4">
-      <input class="input-search" type="search" placeholder="Search"/>
+      <input [formControl]="searchInputControl"  class="input-search" type="search" placeholder="Search"/>
       <span class="material-icons">search</span>
     </div>
     <ng-template ngFor let-item let-i="index" [ngForOf]="items">

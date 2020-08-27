@@ -1,6 +1,5 @@
 .btn {
-  outline-width: 0;
-  display: inline-flex;  
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: $font-weight-bold;
@@ -11,7 +10,7 @@
   font-weight: normal;
   font-size: 0.875rem;
   font-family: $font-family-default;
-  height: 36px;  
+  height: 36px;
   letter-spacing: normal;
   text-align: center;
   color: $color-primary-600;
@@ -30,6 +29,41 @@
 }
 
 .btn-primary {
-  background: $color-secondary-500; 
+  background: $color-secondary-500;
   color: $color-primary-700;
+}
+
+.btn-rounded {
+  margin: 4px;
+  background-color: #e0e0e0;
+  color: rgba(0, 0, 0, 0.87);
+
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 16px;
+  align-items: center;
+  cursor: default;
+  min-height: 32px;
+  min-width: 150px;
+  height: 1px;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-rounded:hover {
+  transform: translateZ(0);
+  transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: $color-secondary-500;
+}
+
+.btn-rounded:focus {
+  background-color: $color-secondary-500;
 }
