@@ -1,0 +1,18 @@
+@import '../assets/variables';
+
+.app-header {
+    height: 60px;
+    background-color: $color-primary-700;
+    align-items: center;    
+}
+
+.app-logo {
+    background-image: url("../assets/images/logo.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: $color-secondary-500;;
+    height: 50px;
+    width: 50px;
+    margin: 8px;
+}

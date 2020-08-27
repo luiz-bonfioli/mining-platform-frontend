@@ -14,7 +14,7 @@
   height: 36px;  
   letter-spacing: normal;
   text-align: center;
-  color: $gray-7;
+  color: $color-primary-600;
   padding: $btn-padding-y $btn-padding-x;
   border-radius: $border-radius-default;
   cursor: pointer;
@@ -30,6 +30,6 @@
 }
 
 .btn-primary {
-  background: $blue1; 
-  color: $gray-1;
+  background: $color-secondary-500; 
+  color: $color-primary-700;
 }

@@ -24,7 +24,7 @@
 }
 
 .internal-menu-item {
-    color: #60789b;
+    color: $color-primary-600;
     margin-bottom: 0.875rem;
     padding: 10px 0px 10px 0px;    
     font-size: 14px;
@@ -32,13 +32,13 @@
 }
 
 .internal-menu-item:hover {
-    background: #f7f8fe;
+    background: #f5f9fd;
     border-radius: 8px;
 }
 
 .internal-menu-active-item {
-    color: $blue1;
-    background: #f6faff;
+    color: $color-primary-800;
+    background: #f5f9fd;
     border-radius: 8px;
     border: none;
 }
