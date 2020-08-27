@@ -18,6 +18,9 @@ export class MenuComponent implements OnInit {
   @Input()
   public formInvalid: boolean;
 
+  @Input()
+  public searchVisible: boolean;
+
   @Output()
   public search: EventEmitter<string>;
 

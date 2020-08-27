@@ -1,6 +1,6 @@
 <div class="container-list">
 
-  <app-menu title="Equipments" [items]="menuItems" (search)="search($event)"></app-menu>
+  <app-menu title="Equipments" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
 
   <div class="flex-container">
     <button class="btn-rounded" (click)="findByCategory(null)">All</button>
