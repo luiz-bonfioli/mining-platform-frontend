@@ -1,20 +1,25 @@
 <div class="container-list">
 
-  <app-menu title="Equipments" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
+  <div class="equipment-menu">
 
-  <div class="flex-container">
-    <button class="btn-rounded" (click)="findByCategory(null)">All</button>
-    <button class="btn-rounded" *ngFor="let category of categories" (click)="findByCategory(category)">{{ category.name }}</button>
+    <app-menu title="Equipments" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
+
+    <div class="flex-container">
+      <button class="btn-rounded" (click)="findByCategory(null)">All</button>
+      <button class="btn-rounded" *ngFor="let category of categories"
+        (click)="findByCategory(category)">{{ category.name }}</button>
+    </div>
+
   </div>
 
-  <div class="flex-container flex-wrap mb-4">
+  <div class="equipment-grid-container flex-container flex-wrap pb-4">
     <div (click)="updateItem(equipment)" *ngFor="let equipment of items" class="card equipment-card">
       <p>{{ equipment.name }}</p>
       <p>{{ equipment.category.name }}</p>
     </div>
   </div>
 
-  <mat-paginator [length]="totalItems" [pageSize]="maxPerPage" [pageSizeOptions]="[5, 10, 15, 20, 100]"
+  <mat-paginator class="paginator" [length]="totalItems" [pageSize]="maxPerPage" [pageSizeOptions]="[5, 10, 15, 20, 100]"
     (page)="onPageChanged($event)">
   </mat-paginator>
 

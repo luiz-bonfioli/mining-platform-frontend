@@ -1,6 +1,22 @@
+@import '../../../../assets/variables';
+
 .equipment-card {
   min-width: 250px;
   height: 140px;
   margin: 20px 20px 0px 0px;
   cursor: pointer;
+}
+
+.equipment-menu{
+  height: 111px;
+}
+
+.equipment-grid-container {
+  height: calc(100vh - 195px - 56px - 12px);
+  align-content: flex-start;
+  overflow-y: auto;
+}
+
+.paginator {
+  background: $gray-1;
 }

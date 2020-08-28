@@ -50,3 +50,20 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   -webkit-appearance: none;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: $gray-1; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: $color-primary-600; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $color-secondary-500; 
+}
