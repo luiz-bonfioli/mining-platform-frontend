@@ -11,17 +11,27 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule),
     canActivate: [AuthenticationGuard]
-  },  
+  },
   {
     path: 'asset-manager',
-    loadChildren: () => import('./asset-manager/asset-manager.module').then(mod => mod.AssetManagerModule),    
+    loadChildren: () => import('./asset-manager/asset-manager.module').then(mod => mod.AssetManagerModule),
     canActivate: [AuthenticationGuard]
   },
   {
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(mod => mod.SettingsModule),
     canActivate: [AuthenticationGuard]
-  }  
+  },
+  {
+    path: 'organizations',
+    loadChildren: () => import('./organizations/organizations.module').then(mod => mod.OrganizationsModule),
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'map-viewer',
+    loadChildren: () => import('./map-viewer/map-viewer.module').then(mod => mod.MapViewerModule),
+    canActivate: [AuthenticationGuard]
+  }
 ];
 
 @NgModule({

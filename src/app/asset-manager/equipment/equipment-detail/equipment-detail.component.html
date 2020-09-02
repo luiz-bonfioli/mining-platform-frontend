@@ -34,20 +34,6 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <br>
-
-      <mat-form-field appearance="standard">
-        <mat-label>Category</mat-label>
-        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto" required>
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngIf="isLoading">Loading...</mat-option>
-          <ng-container *ngIf="!isLoading">
-            <mat-option *ngFor="let category of categories" [value]="category">
-              {{category.name}}
-            </mat-option>
-          </ng-container>
-        </mat-autocomplete>
-      </mat-form-field>
 
     </div>
   </form>

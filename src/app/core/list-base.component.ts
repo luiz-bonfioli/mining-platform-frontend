@@ -52,24 +52,12 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   protected createMenu(): void {
     this.menuItems = new Array<MenuItem>();
 
-    // let backMenu = new MenuItem();
-    // backMenu.icon = 'clear';
-    // backMenu.class = 'green-btn';
-    // backMenu.action = () => this.back();
-    // this.addMenuItem(backMenu);
-
     let newMenu = new MenuItem();
     newMenu.label = 'New';
     newMenu.icon = 'add_circle';
     newMenu.class = 'btn-primary';
     newMenu.action = () => this.newItem();
     this.addMenuItem(newMenu);
-
-    // let updateMenu = new MenuItem();
-    // updateMenu.icon = 'create';
-    // updateMenu.class = 'green-btn';
-    // updateMenu.action = () => this.updateItem();
-    // this.addMenuItem(updateMenu);
 
     // let removeMenu = new MenuItem();
     // removeMenu.icon = 'delete';

@@ -1,13 +1,13 @@
 h1 {
     font-size: 20px;
-    font-weight: $font-weight-extra-bold;
+    font-weight: $font-weight-bold;
     color: $color-primary-700;
 }
 
 label {
     font-size: $font-size-sm;
     color: $gray-7;
-    font-weight: $font-weight-extra-bold;
+    font-weight: $font-weight-bold;
 }
 
 .flex-container {
@@ -125,6 +125,11 @@ label {
     padding-bottom: 48px;
     box-shadow: 8px 0px 8px 0px rgba(44, 61, 86, 0.15);
 }
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
 
 .divider {
     display: block;

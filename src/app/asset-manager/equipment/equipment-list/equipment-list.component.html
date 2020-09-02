@@ -4,23 +4,39 @@
 
     <app-menu title="Equipments" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
 
-    <div class="flex-container">
-      <button class="btn-rounded" (click)="findByCategory(null)">All</button>
-      <button class="btn-rounded" *ngFor="let category of categories"
-        (click)="findByCategory(category)">{{ category.name }}</button>
-    </div>
+    <mat-chip-list >
+      <mat-chip class="btn-rounded" (click)="findByCategory(null)">All</mat-chip>
+      <mat-chip class="btn-rounded" (click)="findByCategory(category)" *ngFor="let category of categories">{{ category.name }}</mat-chip>
+    </mat-chip-list>
 
-  </div>
 
   <div class="equipment-grid-container flex-container flex-wrap pb-4">
-    <div (click)="updateItem(equipment)" *ngFor="let equipment of items" class="card equipment-card">
-      <p>{{ equipment.name }}</p>
+    <div *ngFor="let equipment of items" class="card equipment-card">
+      <div class="flex-space-between align-items-center mb-3">
+        <h3>{{ equipment.name }}</h3>
+        <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
+          <mat-menu #menu>
+            <button mat-menu-item disabled>
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+            <button (click)="updateItem(equipment)" mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+          </mat-menu>
+        </button>
+      </div>
       <p>{{ equipment.category.name }}</p>
+      <p>{{ equipment.model.name }}</p>
+      <span>
+
+      </span>
     </div>
   </div>
 
-  <mat-paginator class="paginator" [length]="totalItems" [pageSize]="maxPerPage" [pageSizeOptions]="[5, 10, 15, 20, 100]"
-    (page)="onPageChanged($event)">
+  <mat-paginator class="paginator" [length]="totalItems" [pageSize]="maxPerPage"
+    [pageSizeOptions]="[5, 10, 15, 20, 100]" (page)="onPageChanged($event)">
   </mat-paginator>
 
 </div>

@@ -13,14 +13,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CdkScrollableModule, ScrollingModule } from '@angular/cdk/scrolling';
+import { MatMenuModule } from '@angular/material/menu';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContextService } from '../core/context/context.service';
 import { MenuComponent } from '../core/action-menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ MenuComponent],
+  declarations: [MenuComponent],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -39,10 +39,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatChipsModule,
     MatPaginatorModule,
-    CdkScrollableModule,
-    ScrollingModule
+    MatMenuModule
   ],
-  exports: [    
+  exports: [
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -59,12 +58,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatChipsModule,
     MatPaginatorModule,
-    CdkScrollableModule,
-    ScrollingModule,
-
+    MatMenuModule,
     MenuComponent
-    
   ],
-  providers: [ HttpClient, ContextService ]
+  providers: [HttpClient, ContextService]
 })
 export class SharedModule { }
