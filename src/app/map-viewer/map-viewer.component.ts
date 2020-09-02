@@ -74,11 +74,11 @@ export class MapViewerComponent implements OnInit, OnDestroy, AfterViewInit  {
 
 				for ( var i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3 ) {
 
-					vertices[ j + 1 ] = data[ i ] * 10;
+			//		vertices[ j + 1 ] = data[ i ] * 10;
 
 				}
 
-				geometry.computeFaceNormals(); // needed for helper
+		//		geometry.computeFaceNormals(); // needed for helper
 
 				//
 
