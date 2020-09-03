@@ -11,6 +11,14 @@ const routes: Routes = [
       {
         path: 'organization', loadChildren: () => import('./organization/organization.module').then(mod => mod.OrganizationModule),
         canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'team', loadChildren: () => import('./team/team.module').then(mod => mod.TeamModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'operator', loadChildren: () => import('./operator/operator.module').then(mod => mod.OperatorModule),
+        canActivate: [AuthenticationGuard]
       }
     ]
   }
