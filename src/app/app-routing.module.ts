@@ -31,6 +31,26 @@ const routes: Routes = [
     path: 'map-viewer',
     loadChildren: () => import('./map-viewer/map-viewer.module').then(mod => mod.MapViewerModule),
     canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'planning',
+    loadChildren: () => import('./planning/planning.module').then(mod => mod.PlanningModule),
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule),
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'reporting',
+    loadChildren: () => import('./reporting/reporting.module').then(mod => mod.ReportingModule),
+    canActivate: [AuthenticationGuard]
+  },
+  {
+    path: 'allocation',
+    loadChildren: () => import('./allocation/allocation.module').then(mod => mod.AllocationModule),
+    canActivate: [AuthenticationGuard]
   }
 ];
 

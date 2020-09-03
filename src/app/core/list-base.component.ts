@@ -23,6 +23,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
    * ListBase properties
    */
   public items: M[];
+  public selectedItem: M;
   public parent: ModelBase;
 
   private parentId: number = null;

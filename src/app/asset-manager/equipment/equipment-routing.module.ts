@@ -8,12 +8,10 @@ const routes: Routes = [
     path: 'list',
     component: EquipmentListComponent
   },
-
   {
     path: '',
     component: EquipmentDetailComponent
   },
-
   {
     path: ':id',
     component: EquipmentDetailComponent

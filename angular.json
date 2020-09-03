@@ -13,10 +13,18 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {          
+          "es": "src/locale/messages.es.xlf",
+          "pt-BR": "src/locale/messages.pt-BR.xlf"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": ["en-US"],
             "aot": true,
             "outputPath": "dist/web-app",
             "index": "src/index.html",
@@ -33,6 +41,24 @@
             "scripts": []
           },
           "configurations": {
+            "en-US": {
+              "localize": ["en-US"],
+              "i18nLocale": "en-US",
+              "i18nFile": "src/locale/messages.en-US.xlf",
+              "aot": true
+            },
+            "pt-BR": {
+              "localize": ["pt-BR"],
+              "i18nLocale": "pt-BR",
+              "i18nFile": "src/locale/messages.pt-BR.xlf",
+              "aot": true
+            },
+            "es": {
+              "localize": ["es"],
+              "i18nLocale": "es",
+              "i18nFile": "src/locale/messages.es.xlf",
+              "aot": true
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -71,6 +97,15 @@
           "configurations": {
             "production": {
               "browserTarget": "web-app:build:production"
+            },
+            "en-US": {
+              "browserTarget": "web-app:build:en-US"
+            },
+            "pt-BR": {
+              "browserTarget": "web-app:build:pt-BR"
+            },
+            "es": {
+              "browserTarget": "web-app:build:es"
             }
           }
         },
