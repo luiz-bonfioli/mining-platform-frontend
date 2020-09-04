@@ -1,19 +1,44 @@
 <div class="container-detail card">
 
-    <app-menu [formInvalid]="formDetail.invalid" title="Organization" [items]="menuItems"></app-menu>
-
-    <form [formGroup]="formDetail">
-        <div>
-            <mat-form-field appearance="standard">
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="name" required />
-            </mat-form-field>
-            <br>
-            <mat-form-field appearance="standard">
-                <mat-label>Description</mat-label>
-                <input matInput formControlName="description" required />
-            </mat-form-field>
+    <div class="grid-container grid-col-2">
+        <div class="flex-center align-items-center test picture">
+            <span class="title-team"> O </span>
         </div>
-    </form>
+        <div>picture</div>
+        <div>picture</div>
+
+    </div>
+
+    <!-- <app-menu [formInvalid]="formDetail.invalid" title="Organization" [items]="menuItems"></app-menu> -->
+
+    <mat-tab-group mat-stretch-tabs animationDuration="0ms">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <div class="flex-space-between align-items-center">
+                    <span class="material-icons mr-4">location_city</span>
+                    <span>Organization</span>
+                  </div>                
+            </ng-template>
+            <form [formGroup]="formDetail">
+                <div>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" required />
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="standard">
+                        <mat-label>Description</mat-label>
+                        <input matInput formControlName="description" required />
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-tab>
+
+        <mat-tab label="Sites">
+
+        </mat-tab>
+    </mat-tab-group>
+
+
 
 </div>

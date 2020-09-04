@@ -32,6 +32,24 @@ label {
     justify-content: space-between;
 }
 
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.grid-container {
+    display: grid;    
+}
+
+.grid-col-2 {    
+    grid-template-columns: auto auto;
+}
+
+.grid-col-3 {    
+    grid-template-columns: auto auto auto;
+}
+
+
 .align-items-center {
     align-items: center !important;
 }

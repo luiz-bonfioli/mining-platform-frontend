@@ -22,7 +22,7 @@ export class OrganizationListComponent extends ListBase<Organization, Organizati
       data: this.selectedItem,
       backdropClass: 'dialog-backdrop'
     });
-    dialogRef.disableClose = true;
+    //dialogRef.disableClose = true;
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });

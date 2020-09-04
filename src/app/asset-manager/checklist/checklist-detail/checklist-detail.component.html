@@ -1,0 +1,14 @@
+<div class="container-detail card">
+
+    <app-menu [formInvalid]="formDetail.invalid" title="Checklist" [items]="menuItems"></app-menu>
+
+    <form [formGroup]="formDetail">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" required />
+            </mat-form-field>
+        </div>
+    </form>
+
+</div>

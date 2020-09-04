@@ -13,7 +13,7 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
       },
       {
-        path: 'equipment-detail', loadChildren: () => import('./equipment/equipment.module').then(mod => mod.EquipmentModule),
+        path: 'checklist', loadChildren: () => import('./checklist/checklist.module').then(mod => mod.ChecklistModule),
         canActivate: [AuthenticationGuard]
       }
     ]
