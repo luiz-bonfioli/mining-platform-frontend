@@ -2,6 +2,7 @@ export class Routes {
   
   public static readonly ORGANIZATION_ROUTE = 'organizations/organization';
   public static readonly TEAM_ROUTE = 'organizations/team';
+  public static readonly OPERATOR_ROUTE = 'organizations/operator';
   public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   
 
@@ -12,7 +13,6 @@ export class Routes {
   public static readonly CHECKLIST_ROUTE = 'checklist';
   public static readonly CHECKLIST_ITEM_ROUTE = 'checklist-item';
   public static readonly CHECKLIST_ENTRY_ROUTE = 'checklist-entry';
-  public static readonly OPERATOR_ROUTE = 'operator';
   public static readonly MEASUREMENT_ROUTE = 'measurement';
   public static readonly MEASUREMENT_TYPE_ROUTE = 'measurement-type';
   public static readonly LOCATION_ROUTE = 'location';

@@ -16,10 +16,6 @@ export class EquipmentListComponent extends ListBase<Equipment, EquipmentService
   categories: Category[]  
   isOpen: boolean
 
-  toggleOverlay(id: string){
-    
-  }
-
   constructor(service: EquipmentService, private categoryService: CategoryService, injector: Injector) {
     super(service, { "ROUTE": Routes.EQUIPMENT_ROUTE }, injector);
   }

@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
+import { DetailBase } from 'src/app/core/detail-base.component';
+import { Operator } from '../operator';
+import { OperatorService } from '../operator.service';
 
 @Component({
   selector: 'app-operator-detail',
   templateUrl: './operator-detail.component.html',
   styleUrls: ['./operator-detail.component.scss']
 })
-export class OperatorDetailComponent implements OnInit {
+export class OperatorDetailComponent extends DetailBase<Operator, OperatorService> {
 
-  constructor() { }
+  constructor(service: OperatorService, injector: Injector) {
+    super(service, Operator, injector);
+  }
 
-  ngOnInit(): void {
+  public createFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      id: [''],
+      name: ['', Validators.required]
+    });
   }
 
 }

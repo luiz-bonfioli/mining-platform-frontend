@@ -5,7 +5,7 @@ import { OrganizationDetailComponent } from './organization-detail/organization-
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'list',
     component: OrganizationListComponent
   },
 
