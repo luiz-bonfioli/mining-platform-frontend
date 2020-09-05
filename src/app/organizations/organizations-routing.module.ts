@@ -9,6 +9,10 @@ const routes: Routes = [
     component: OrganizationsComponent,
     children: [
       {
+        path: 'company', loadChildren: () => import('./company/company.module').then(mod => mod.CompanyModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
         path: 'organization', loadChildren: () => import('./organization/organization.module').then(mod => mod.OrganizationModule),
         canActivate: [AuthenticationGuard]
       },

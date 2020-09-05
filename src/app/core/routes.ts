@@ -1,5 +1,6 @@
 export class Routes {
   
+  public static readonly COMPANY_ROUTE = 'organizations/company';
   public static readonly ORGANIZATION_ROUTE = 'organizations/organization';
   public static readonly TEAM_ROUTE = 'organizations/team';
   public static readonly OPERATOR_ROUTE = 'organizations/operator';
@@ -33,7 +34,6 @@ export class Routes {
   public static readonly PLANNING_HIERARCHY_ROUTE = 'planning-hierarchy';
   public static readonly PRODUCTION_PLANNING_ROUTE = 'production-planning';
   public static readonly USER_ROUTE = 'user';
-  public static readonly COMPANY_ROUTE = 'company';
   public static readonly PLANT_ROUTE = 'plant';
   public static readonly STATE_ROUTE = 'state';
   public static readonly STATE_GROUP_ROUTE = 'state-group';
