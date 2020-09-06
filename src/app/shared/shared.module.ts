@@ -19,6 +19,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContextService } from '../core/context/context.service';
 import { MenuComponent } from '../core/action-menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [MenuComponent],
@@ -41,7 +42,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatChipsModule,
     MatPaginatorModule,
     MatMenuModule,
-    MatTabsModule
+    MatTabsModule,
+    QRCodeModule
   ],
   exports: [
     HttpClientModule,
@@ -62,7 +64,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatMenuModule,
     MenuComponent,
-    MatTabsModule
+    MatTabsModule,
+    QRCodeModule
   ],
   providers: [HttpClient, ContextService]
 })
