@@ -13,6 +13,10 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
       },
       {
+        path: 'device', loadChildren: () => import('./device/device.module').then(mod => mod.DeviceModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
         path: 'checklist', loadChildren: () => import('./checklist/checklist.module').then(mod => mod.ChecklistModule),
         canActivate: [AuthenticationGuard]
       }

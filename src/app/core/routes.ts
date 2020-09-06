@@ -5,6 +5,7 @@ export class Routes {
   public static readonly TEAM_ROUTE = 'organizations/team';
   public static readonly OPERATOR_ROUTE = 'organizations/operator';
 
+  public static readonly DEVICE_ROUTE = 'asset-manager/device';
   public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   public static readonly CHECKLIST_ROUTE = 'asset-manager/checklist';
   
