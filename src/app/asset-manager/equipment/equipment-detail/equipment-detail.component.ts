@@ -32,8 +32,9 @@ export class EquipmentDetailComponent extends DetailBase<Equipment, EquipmentSer
       id: [''],
       name: ['', Validators.required],
       shortName: ['', Validators.required],
-      category: ['', Validators.required],
-      model: ['', Validators.required]
+      category: [null, Validators.required],
+      model: [null, Validators.required],
+      device: [null]
     });
   }
 

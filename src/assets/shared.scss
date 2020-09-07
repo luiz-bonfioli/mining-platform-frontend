@@ -38,17 +38,16 @@ label {
 }
 
 .grid-container {
-    display: grid;    
+    display: grid;
 }
 
-.grid-col-2 {    
+.grid-col-2 {
     grid-template-columns: auto auto;
 }
 
-.grid-col-3 {    
+.grid-col-3 {
     grid-template-columns: auto auto auto;
 }
-
 
 .align-items-center {
     align-items: center !important;
@@ -131,6 +130,23 @@ label {
     text-align: center;
     cursor: pointer;
 }
+
+// BOTTOM
+// .app-menu {
+//     position: fixed;
+//     left: 0;
+//    // top: 60px;
+//    bottom: 0;
+//    height: 80px;
+//     //height: 100%;
+//     background: #fff;
+//     //padding-top: 22px;
+//     padding-top: 12px;
+//     //width: 80px;
+//     width: 100%;
+//     //padding-bottom: 48px;
+//     box-shadow: 0px -8px 8px 0px rgba(44, 61, 86, 0.15);
+// }
 
 .app-menu {
     position: fixed;

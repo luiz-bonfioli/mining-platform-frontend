@@ -15,6 +15,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ContextService } from '../core/context/context.service';
 import { MenuComponent } from '../core/action-menu/menu.component';
@@ -43,6 +44,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatPaginatorModule,
     MatMenuModule,
     MatTabsModule,
+    MatExpansionModule,
     QRCodeModule
   ],
   exports: [
@@ -65,6 +67,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatMenuModule,
     MenuComponent,
     MatTabsModule,
+    MatExpansionModule,
     QRCodeModule
   ],
   providers: [HttpClient, ContextService]

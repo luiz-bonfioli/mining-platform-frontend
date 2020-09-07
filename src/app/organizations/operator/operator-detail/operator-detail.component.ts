@@ -18,7 +18,8 @@ export class OperatorDetailComponent extends DetailBase<Operator, OperatorServic
   public createFormGroup(): FormGroup {
     return this.formBuilder.group({
       id: [''],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      register: [null, Validators.required]
     });
   }
 
