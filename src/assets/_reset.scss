@@ -6,11 +6,11 @@
   background: none;
   list-style: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  font-family: $font-family-default;
 }
 
 body {
   background-color: #f5f9fd;
-  font-family: $font-family-default !important;
   overflow: hidden;
 }
 

@@ -3,7 +3,7 @@
   <div class="equipment-menu">
     <app-menu title="Checklist" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
 
-    <mat-accordion>
+    <mat-accordion multi="true">
       <mat-expansion-panel *ngFor="let checklist of items">
         <mat-expansion-panel-header>
           <mat-panel-title>
@@ -16,14 +16,22 @@
         </mat-expansion-panel-header>
 
         <div *ngFor="let item of checklist.checklistItems">
-          {{ item.name }}
+          <div *ngIf="item.id; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <div class="card">{{ item.name }}</div>
+          </ng-template>
+          <ng-template #elseBlock>
+            <div class="card">
+              <input (keyup.enter)="onSaveItem(checklist, item)" placeholder="new item" formControlName="name" required />
+            </div>
+          </ng-template>
         </div>
-    
+
         <mat-action-row>
-          <button mat-raised-button color="primary">Add item</button>
+          <button mat-raised-button (click)="addItem(checklist)" color="primary">Add item</button>
         </mat-action-row>
       </mat-expansion-panel>
-    
+
     </mat-accordion>
 
   </div>

@@ -11,6 +11,10 @@ const routes: Routes = [
       {
         path: 'material', loadChildren: () => import('./material/material.module').then(mod => mod.MaterialModule),
         canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'state', loadChildren: () => import('./state/state.module').then(mod => mod.StateModule),
+        canActivate: [AuthenticationGuard]
       }
     ]
   }

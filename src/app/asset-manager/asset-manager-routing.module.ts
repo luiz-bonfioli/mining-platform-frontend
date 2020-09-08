@@ -17,6 +17,10 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
       },
       {
+        path: 'state', loadChildren: () => import('./state/state.module').then(mod => mod.StateModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
         path: 'checklist', loadChildren: () => import('./checklist/checklist.module').then(mod => mod.ChecklistModule),
         canActivate: [AuthenticationGuard]
       }
