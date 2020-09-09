@@ -8,7 +8,7 @@ import { ChecklistItem } from './checklist-item';
 export class ChecklistItemService extends ServiceBase<ChecklistItem> {
 
   constructor(injector: Injector) {
-    super({ RESOURCE: 'checklist-item' }, injector);
+    super({ RESOURCE: 'checklist/checklist-item' }, injector);
   }
 
 }

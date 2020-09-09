@@ -5,6 +5,7 @@
 
     <mat-accordion multi="true">
       <mat-expansion-panel *ngFor="let checklist of items">
+
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{ checklist.name }}
@@ -15,24 +16,31 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <div *ngFor="let item of checklist.checklistItems">
+        <mat-list *ngFor="let item of checklist.checklistItems">
           <div *ngIf="item.id; then thenBlock else elseBlock"></div>
+
           <ng-template #thenBlock>
-            <div class="card">{{ item.name }}</div>
+            <div class="flex-space-between">
+              <mat-list-item>{{ item.name }}</mat-list-item>
+              <span (click)="removeChecklistItem(checklist, item)" class="material-icons mr-4">close</span>
+            </div>
+            <mat-divider></mat-divider>
           </ng-template>
           <ng-template #elseBlock>
-            <div class="card">
-              <input (keyup.enter)="onSaveItem(checklist, item)" placeholder="new item" formControlName="name" required />
-            </div>
+            <mat-list-item>
+              <input (keyup.enter)="onSaveItem(checklist.id, item)" [(ngModel)]="item.name" placeholder="new item"
+                required />
+            </mat-list-item>
+            <mat-divider></mat-divider>
           </ng-template>
-        </div>
+
+        </mat-list>
 
         <mat-action-row>
           <button mat-raised-button (click)="addItem(checklist)" color="primary">Add item</button>
         </mat-action-row>
+
       </mat-expansion-panel>
-
     </mat-accordion>
-
   </div>
 </div>

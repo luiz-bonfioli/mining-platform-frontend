@@ -1,9 +1,10 @@
 import { Component, Injector } from '@angular/core';
-import { ListBase } from 'src/app/core/list-base.component';
-import { Routes } from 'src/app/core/routes';
-import { Checklist } from '../checklist';
-import { ChecklistService } from '../checklist.service';
-import { ChecklistItem } from '../checklist-item/checklist-item';
+import { ListBase } from 'src/app/core/list-base.component'
+import { Routes } from 'src/app/core/routes'
+import { Checklist } from '../checklist'
+import { ChecklistService } from '../checklist.service'
+import { ChecklistItem } from '../checklist-item/checklist-item'
+import { ChecklistItemService } from '../checklist-item/checklist-item.service'
 
 @Component({
   selector: 'app-checklist-list',
@@ -12,7 +13,7 @@ import { ChecklistItem } from '../checklist-item/checklist-item';
 })
 export class ChecklistListComponent extends ListBase<Checklist, ChecklistService> {
 
-  constructor(service: ChecklistService, injector: Injector) {
+  constructor(service: ChecklistService, private checklistItemService: ChecklistItemService, injector: Injector) {
     super(service, { "ROUTE": Routes.CHECKLIST_ROUTE }, injector)
   }
 
@@ -20,8 +21,19 @@ export class ChecklistListComponent extends ListBase<Checklist, ChecklistService
     checklist.checklistItems.push(new ChecklistItem())   
   }
 
-  onSaveItem(checklist: Checklist, checklistItem: ChecklistItem){
-    console.log(checklistItem.name)
+  onSaveItem(checklistId: string, checklistItem: ChecklistItem){
+    checklistItem.checklist = new Checklist()
+    checklistItem.checklist.id = checklistId
+    this.checklistItemService.save(checklistItem).subscribe(response => {
+      checklistItem.id = response.id
+    })
+  }
+
+  removeChecklistItem(checklist: Checklist, checklistItem: ChecklistItem){
+    this.checklistItemService.delete(checklistItem).subscribe(response => {
+      checklist.checklistItems.splice(checklist.checklistItems.indexOf(checklistItem), 1)
+
+    })
   }
 
 }
