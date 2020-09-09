@@ -13,6 +13,8 @@ import { ChecklistItemService } from '../checklist-item/checklist-item.service'
 })
 export class ChecklistListComponent extends ListBase<Checklist, ChecklistService> {
 
+  selectedChecklistItem: ChecklistItem
+
   constructor(service: ChecklistService, private checklistItemService: ChecklistItemService, injector: Injector) {
     super(service, { "ROUTE": Routes.CHECKLIST_ROUTE }, injector)
   }
@@ -26,6 +28,7 @@ export class ChecklistListComponent extends ListBase<Checklist, ChecklistService
     checklistItem.checklist.id = checklistId
     this.checklistItemService.save(checklistItem).subscribe(response => {
       checklistItem.id = response.id
+      this.selectedChecklistItem = null
     })
   }
 
@@ -33,7 +36,11 @@ export class ChecklistListComponent extends ListBase<Checklist, ChecklistService
     this.checklistItemService.delete(checklistItem).subscribe(response => {
       checklist.checklistItems.splice(checklist.checklistItems.indexOf(checklistItem), 1)
 
-    })
+    })  
+  }
+
+  editChecklistItem(checklistItem: ChecklistItem){
+    this.selectedChecklistItem = checklistItem
   }
 
 }

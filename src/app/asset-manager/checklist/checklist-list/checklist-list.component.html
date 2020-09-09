@@ -8,21 +8,23 @@
 
         <mat-expansion-panel-header>
           <mat-panel-title>
+            <!-- <mat-icon>playlist_add_check</mat-icon> -->
             {{ checklist.name }}
           </mat-panel-title>
-          <mat-panel-description>
-            {{ checklist.checklistItems.length }} items
-            <mat-icon>playlist_add_check</mat-icon>
-          </mat-panel-description>
+          <!-- <mat-panel-description>
+            {{ checklist.checklistItems.length }} items            
+          </mat-panel-description> -->
         </mat-expansion-panel-header>
 
         <mat-list *ngFor="let item of checklist.checklistItems">
-          <div *ngIf="item.id; then thenBlock else elseBlock"></div>
-
+          <div *ngIf="item.id && item.id != selectedChecklistItem?.id; then thenBlock else elseBlock"></div>
           <ng-template #thenBlock>
             <div class="flex-space-between">
               <mat-list-item>{{ item.name }}</mat-list-item>
-              <span (click)="removeChecklistItem(checklist, item)" class="material-icons mr-4">close</span>
+              <div class="flex-container">
+                <span (click)="removeChecklistItem(checklist, item)" class="material-icons mr-4">close</span>
+                <span (click)="editChecklistItem(item)" class="material-icons mr-4">edit</span>
+              </div>
             </div>
             <mat-divider></mat-divider>
           </ng-template>
@@ -33,7 +35,6 @@
             </mat-list-item>
             <mat-divider></mat-divider>
           </ng-template>
-
         </mat-list>
 
         <mat-action-row>
