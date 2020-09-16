@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: StateDetailComponent
+  },
+  {
+    path: ':parentId/children',
+    component: StateListComponent
   }
 ];
 

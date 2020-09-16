@@ -26,7 +26,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   public selectedItem: M;
   public parent: ModelBase;
 
-  private parentId: number = null;
+  private parentId: string = null;
   public menuItems: MenuItem[];
 
   protected router: Router = this.injector.get(Router);
@@ -47,7 +47,21 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   }
 
   protected onLoad(): void {
-    this.fetchItems(this.currentPage, this.maxPerPage, [], Direction.ASC, []);
+    if(!this.parentId){
+      this.fetchItems(this.currentPage, this.maxPerPage, [], Direction.ASC, []);
+    }
+    else{
+      this.fetchChildren(this.parentId, this.currentPage, this.maxPerPage, [], Direction.ASC, []);
+    }
+  }
+
+  protected loadChildren(parentId: string): void {
+    if (!parentId) {
+      //this.router.navigate([this.route['ROUTE'], { relativeTo: this.route }]);
+      this.router.navigate([this.route['ROUTE']]);
+    } else {
+      this.router.navigate([this.route['ROUTE'], parentId, this.route['CHILDREN_ROUTE']]);
+    }
   }
 
   protected createMenu(): void {
@@ -84,7 +98,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
 
   private fetchParentIdParameter(params: Params): void {
     if (params['parentId'] !== undefined) {
-      this.parentId = +params['parentId'];
+      this.parentId = params['parentId'];
     }
   }
 
@@ -96,8 +110,8 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.service.fetchItems(page, size, sort, direction, search).subscribe(response => this.parseResponse(response));
   }
 
-  public fetchChildren(startingAt: number, maxPerPage: number, sortOrder: number, sortField: string, parentId: number): void {
-    this.service.fetchChildren(startingAt, maxPerPage, sortOrder, sortField, parentId).subscribe(response => this.parseResponse(response));
+  public fetchChildren(parentId: string, page: number, size: number, sort: string[], direction: string, search: string[]): void {
+    this.service.fetchChildren(parentId, page, size, sort, direction, search).subscribe(response => this.parseResponse(response));
   }
 
   protected parseResponse(response: DataResponse<M>) {

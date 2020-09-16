@@ -8,6 +8,8 @@ export class Routes {
   public static readonly DEVICE_ROUTE = 'asset-manager/device';
   public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   public static readonly CHECKLIST_ROUTE = 'asset-manager/checklist';
+  public static readonly STATE_ROUTE = 'asset-manager/state';
+  public static readonly CHILD_ROUTE = 'children';
   
 
 
@@ -35,8 +37,7 @@ export class Routes {
   public static readonly PLANNING_HIERARCHY_ROUTE = 'planning-hierarchy';
   public static readonly PRODUCTION_PLANNING_ROUTE = 'production-planning';
   public static readonly USER_ROUTE = 'user';
-  public static readonly PLANT_ROUTE = 'plant';
-  public static readonly STATE_ROUTE = 'state';
+  public static readonly PLANT_ROUTE = 'plant';  
   public static readonly STATE_GROUP_ROUTE = 'state-group';
   public static readonly PLAN_ROUTE = 'plan';
   public static readonly ORDER_PLANNING_BOARD_ROUTE = 'order-planning-board';
