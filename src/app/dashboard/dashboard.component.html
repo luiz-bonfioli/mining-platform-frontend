@@ -1,1 +1,13 @@
 <p>dashboard works!</p>
+<virtual-scroller #scroll [items]="items" 
+  (vsUpdate)="onVsUpdate($event)"
+  (vsChange)="onVsChange($event)"
+  (vsStart)="onVsStart($event)"
+  (vsEnd)="onVsEnd($event)"
+>
+    <div *ngFor="let item of scroll.viewPortItems">
+      <p>name : {{item.name}}</p>
+    </div>
+</virtual-scroller>
+
+<button (click)="appendData()">append data</button>

@@ -10,10 +10,8 @@
   height: 111px;
 }
 
-.equipment-grid-container {
-  height: calc(100vh - 195px - 56px - 12px);
-  align-content: flex-start;
-  overflow-y: auto;
+.equipment-virtual-scroller {
+  height: calc(100vh - 195px);
 }
 
 .paginator {

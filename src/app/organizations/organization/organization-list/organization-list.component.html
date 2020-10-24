@@ -24,10 +24,5 @@
 
       </div>
     </div>
-
-    <mat-paginator class="paginator" [length]="totalItems" [pageSize]="maxPerPage"
-      [pageSizeOptions]="[5, 10, 15, 20, 100]" (page)="onPageChanged($event)">
-    </mat-paginator>
-
   </div>
   <button class="btn" mat-raised-button (click)="openDialog()">Open dialog</button>

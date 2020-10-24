@@ -21,6 +21,7 @@ import { ContextService } from '../core/context/context.service';
 import { MenuComponent } from '../core/action-menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QRCodeModule } from 'angularx-qrcode';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 
 @NgModule({
   declarations: [MenuComponent],
@@ -45,7 +46,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     MatMenuModule,
     MatTabsModule,
     MatExpansionModule,
-    QRCodeModule
+    QRCodeModule,
+    VirtualScrollerModule
   ],
   exports: [
     HttpClientModule,
@@ -68,7 +70,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     MenuComponent,
     MatTabsModule,
     MatExpansionModule,
-    QRCodeModule
+    QRCodeModule,
+    VirtualScrollerModule
   ],
   providers: [HttpClient, ContextService]
 })
