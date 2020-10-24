@@ -9,7 +9,15 @@ const routes: Routes = [
     component: SettingsComponent,
     children: [
       {
+        path: 'unit', loadChildren: () => import('./unit/unit.module').then(mod => mod.UnitModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
         path: 'material', loadChildren: () => import('./material/material.module').then(mod => mod.MaterialModule),
+        canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'location', loadChildren: () => import('./location/location.module').then(mod => mod.LocationModule),
         canActivate: [AuthenticationGuard]
       },
       {

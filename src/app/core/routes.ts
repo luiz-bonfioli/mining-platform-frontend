@@ -9,10 +9,15 @@ export class Routes {
   public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   public static readonly CHECKLIST_ROUTE = 'asset-manager/checklist';
   public static readonly STATE_ROUTE = 'asset-manager/state';
+  
+  public static readonly UNIT_ROUTE = 'settings/unit';
+  public static readonly MATERIAL_ROUTE = 'settings/material';
+  public static readonly LOCATION_ROUTE = 'settings/location';
+  public static readonly LOCATION_STATE_ROUTE = 'settings/state';
+
+
   public static readonly CHILD_ROUTE = 'children';
   
-
-
 
   public static readonly EQUIPMENT_TYPE_ROUTE = 'equipment-type';
   public static readonly EQUIPMENT_MODEL_ROUTE = 'equipment-model';
@@ -21,10 +26,10 @@ export class Routes {
   public static readonly CHECKLIST_ENTRY_ROUTE = 'checklist-entry';
   public static readonly MEASUREMENT_ROUTE = 'measurement';
   public static readonly MEASUREMENT_TYPE_ROUTE = 'measurement-type';
-  public static readonly LOCATION_ROUTE = 'location';
+  
   public static readonly LOCATION_STRUCTURE_ROUTE = 'location-structure';
-  public static readonly UNIT_ROUTE = 'unit';
-  public static readonly MATERIAL_ROUTE = 'material';
+  
+  
   public static readonly NOTIFICATION_ROUTE = 'notification';
   public static readonly PRODUCTION_TYPE_ROUTE = 'production-type';
   public static readonly ORDER_ROUTE = 'order';

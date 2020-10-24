@@ -1,28 +1,31 @@
 <div class="container-list">
 
-  <div class="equipment-menu">
+  <div class="organization-menu">
 
     <app-menu title="Organizations" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
 
-    <div class="equipment-grid-container flex-container flex-wrap pb-4">
-      <div *ngFor="let equipment of items" class="card equipment-card">
-        <div class="flex-space-between align-items-center mb-3">
-          <h3>{{ equipment.name }}</h3>
-          <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
-            <mat-menu #menu>
-              <button mat-menu-item disabled>
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-              <button (click)="updateItem(equipment)" mat-menu-item>
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
-            </mat-menu>
-          </button>
-        </div>
+    <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
 
+      <div #container class="flex-container flex-wrap">
+        <div *ngFor="let organization of items" class="card organization-card">
+          <div class="flex-space-between align-items-center mb-3">
+            <h3>{{ organization.name }}</h3>
+            <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
+              <mat-menu #menu>
+                <button mat-menu-item disabled>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button (click)="updateItem(organization)" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+              </mat-menu>
+            </button>
+          </div>
+
+        </div>
       </div>
-    </div>
+    </virtual-scroller>
   </div>
   <button class="btn" mat-raised-button (click)="openDialog()">Open dialog</button>

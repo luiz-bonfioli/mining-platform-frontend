@@ -4,23 +4,21 @@ import { MaterialListComponent } from './material-list/material-list.component';
 import { MaterialDetailComponent } from './material-detail/material-detail.component';
 
 const routes: Routes = [
-
-  {
-		path: "list",
-		component: MaterialListComponent
-	},
-
 	{
-		path: "",
-		component: MaterialDetailComponent
+	  path: 'list',
+	  component: MaterialListComponent
 	},
-
-	{
-		path: ":id",
-		component: MaterialDetailComponent
-  }
   
-];
+	{
+	  path: '',
+	  component: MaterialDetailComponent
+	},
+  
+	{
+	  path: ':id',
+	  component: MaterialDetailComponent
+	}
+  ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

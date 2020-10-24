@@ -1,5 +1,9 @@
 @import "../../../../assets/variables";
 
+.virtual-scroller {
+  height: calc(100vh - 195px);
+}
+
 .equipment-card {
   min-width: 250px;
   height: 140px;
@@ -8,12 +12,4 @@
 
 .equipment-menu {
   height: 111px;
-}
-
-.equipment-virtual-scroller {
-  height: calc(100vh - 195px);
-}
-
-.paginator {
-  background: $gray-1;
 }

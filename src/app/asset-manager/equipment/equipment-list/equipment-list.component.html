@@ -10,7 +10,7 @@
         {{ category.name }}</mat-chip>
     </mat-chip-list>
 
-    <virtual-scroller class="equipment-virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
+    <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
 
       <div #container class="flex-container flex-wrap">
         <div *ngFor="let equipment of scroll.viewPortItems" class="card equipment-card">

@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class MaterialListComponent extends ListBase<Material, MaterialService> {
 
   constructor(public dialog: MatDialog, service: MaterialService, injector: Injector) {
-		super(service, { "ROUTE": Routes.MATERIAL_ROUTE }, injector);
+    super(service, { "ROUTE": Routes.MATERIAL_ROUTE }, injector);
   }
 
 }
