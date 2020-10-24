@@ -3,7 +3,6 @@ import { ListBase } from 'src/app/core/list-base.component';
 import { MaterialService } from '../material.service';
 import { Routes } from 'src/app/core/routes';
 import { Material } from '../material';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-material-list',
@@ -12,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class MaterialListComponent extends ListBase<Material, MaterialService> {
 
-  constructor(public dialog: MatDialog, service: MaterialService, injector: Injector) {
+  constructor(service: MaterialService, injector: Injector) {
     super(service, { "ROUTE": Routes.MATERIAL_ROUTE }, injector);
   }
 

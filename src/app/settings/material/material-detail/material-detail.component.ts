@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Material } from '../material';
 import { DetailBase } from 'src/app/core/detail-base.component';
 import { MaterialService } from '../material.service';
@@ -8,8 +7,7 @@ import { FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-material-detail',
   templateUrl: './material-detail.component.html',
-  styleUrls: ['./material-detail.component.scss'],
-  providers: [{ provide: MAT_DIALOG_DATA, useValue: {}}]
+  styleUrls: ['./material-detail.component.scss']  
 })
 export class MaterialDetailComponent extends DetailBase<Material, MaterialService> {
 
