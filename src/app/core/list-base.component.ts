@@ -104,7 +104,12 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
 
   public onPageChanged(event: IPageInfo) {
     if (event.endIndex !== -1 && event.endIndex === this.items.length - 1) {
-      this.fetchItems(Math.ceil(event.endIndex / this.maxPerPage), this.maxPerPage, [], Direction.ASC, [])
+      let page = Math.ceil(event.endIndex / this.maxPerPage)
+      if (page != this.currentPage) {
+        this.currentPage = page
+        console.log(this.currentPage)
+        this.fetchItems(this.currentPage, this.maxPerPage, [], Direction.ASC, [])
+      }
     }
   }
 
