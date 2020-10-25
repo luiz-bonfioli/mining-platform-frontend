@@ -2,9 +2,9 @@ import { HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataResponse } from './data-response';
+import { Direction } from './direction.enum';
 import { ModelBase } from './model-base';
 import { Service } from './service';
-import { Direction } from './direction.enum';
 
 export class ServiceBase<M extends ModelBase> extends Service {
 
@@ -65,11 +65,11 @@ export class ServiceBase<M extends ModelBase> extends Service {
   //   return response;
   // }
 
-  public fetchParent(id: number): Observable<M> {
+  public fetchParent(id: string): Observable<M> {
     return this.httpClient.get<M>(`${this.resource['PARENT_RESOURCE']}/${id}`).pipe(map(response => response as M));
   }
 
-  public fetchItem(id: number): Observable<M> {
+  public fetchItem(id: string): Observable<M> {
     return this.httpClient.get<M>(`${this.resource['RESOURCE']}/${id}`).pipe(map(response => response as M));
   }
 
