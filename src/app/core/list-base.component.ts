@@ -1,30 +1,22 @@
-import { Injector, OnInit, Directive } from '@angular/core'
-import { ActivatedRoute, Params, Router } from '@angular/router'
 import { Location } from '@angular/common'
-
-import { ModelBase } from './model-base'
-import { ServiceBase } from './service-base'
+import { Directive, Injector, OnInit } from '@angular/core'
+import { ActivatedRoute, Params, Router } from '@angular/router'
+import { IPageInfo } from 'ngx-virtual-scroller'
 import { MenuItem } from './action-menu/menu-item'
 import { ContextService } from './context/context.service'
 import { DataResponse } from './data-response'
 import { Direction } from './direction.enum'
-import { IPageInfo } from 'ngx-virtual-scroller'
+import { ModelBase } from './model-base'
+import { RouteBehavior } from './route-behavior/route-behavior.enum'
+import { ServiceBase } from './service-base'
 
 @Directive()
 export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> implements OnInit {
-  /**
-   *  Pagination setup
-   */
+
   public currentPage: number = 0
   public maxPerPage: number = 30
   public totalItems: number
-
-  /**
-   * ListBase properties
-   */
   public items: M[] = []
-  public selectedItem: M
-  public parent: ModelBase
 
   private parentId: string = null
   public menuItems: MenuItem[]
@@ -34,7 +26,8 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   protected activatedRoute: ActivatedRoute = this.injector.get(ActivatedRoute)
   protected context: ContextService = this.injector.get(ContextService)
 
-  constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector) { }
+  constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector,
+    protected routeBehavior: RouteBehavior = RouteBehavior.NEW_PAGE) { }
 
   ngOnInit(): void {
     this.fetchRouteParameters()
@@ -85,11 +78,6 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.menuItems.push(item)
   }
 
-  // public onLazyLoad(event: LazyLoadEvent): void {
-  //   this.fetchRouteParameters()
-  //   this.fetchList(event)
-  // }
-
   private fetchRouteParameters(): void {
     this.activatedRoute.params.subscribe(params => {
       this.fetchParentIdParameter(params)
@@ -133,15 +121,36 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   }
 
   public newItem(): void {
+    switch (this.routeBehavior) {
+      case RouteBehavior.NEW_PAGE:
+        this.navigateToNewItem()
+        break
+      case RouteBehavior.OPEN_DIALOG:
+        this.openDialog()
+        break
+    }
+  }
+
+  public navigateToNewItem(): void {
     if (this.parentId != null) {
       this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE']])
     } else {
-      //this.router.navigate([this.route['ROUTE'], { relativeTo: this.route }])
       this.router.navigate([this.route['ROUTE']])
     }
   }
 
   public updateItem(selected: M): void {
+    switch (this.routeBehavior) {
+      case RouteBehavior.NEW_PAGE:
+        this.navigateToUpdateItem(selected)
+        break
+      case RouteBehavior.OPEN_DIALOG:
+        this.openDialog(selected)
+        break
+    }
+  }
+
+  public navigateToUpdateItem(selected: M): void {
     if (this.parentId != null) {
       this.router.navigate([this.route['PARENT_ROUTE'], this.parentId, this.route['ROUTE'], selected.id])
     } else {
@@ -155,26 +164,13 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.router.navigate([parentRoute, selected.id, childrenRoute])
   }
 
-  public removeItem(): void {
-    // this.confirmationService.confirm(
-    //   {
-    //       header: this.translate.instant('MESSAGE_CONFIRM_TITLE'),
-    //       message: this.translate.instant('MESSAGE_CONFIRM_DELETE'),
-    //       icon: 'fa ui-icon-warning',
-    //       accept: () =>
-    //       {
-    //         this.service.delete(this.selected).then(response => {
-    //           if (response.ok) {
-    //             this.items.splice(this.items.indexOf(this.selected), 1)
-    //             this.selected = null
-    //             this.dataTable.reset()
-    //           }
-    //         })
-    //       }
-    //   })
+  public removeItem(selected: M): void {
   }
 
   public back(): void {
     this.location.back()
+  }
+
+  public openDialog(selected: M = null): void {
   }
 }

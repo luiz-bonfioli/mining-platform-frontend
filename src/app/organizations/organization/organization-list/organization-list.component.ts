@@ -1,6 +1,7 @@
 import { Component, Injector } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ListBase } from 'src/app/core/list-base.component'
+import { RouteBehavior } from 'src/app/core/route-behavior/route-behavior.enum'
 import { Routes } from 'src/app/core/routes'
 import { Organization } from '../organization'
 import { OrganizationDetailDialogComponent } from '../organization-detail-dialog/organization-detail-dialog.component'
@@ -14,27 +15,18 @@ import { OrganizationService } from '../organization.service'
 export class OrganizationListComponent extends ListBase<Organization, OrganizationService> {
 
   constructor(service: OrganizationService, protected dialog: MatDialog, injector: Injector) {
-    super(service, { "ROUTE": Routes.ORGANIZATION_ROUTE }, injector)
+    super(service, { "ROUTE": Routes.ORGANIZATION_ROUTE }, injector, RouteBehavior.OPEN_DIALOG)
   }
 
-  newItem() {
-    this.openDialog(null)
-  }
-
-  updateItem(selected: Organization) {
-    this.openDialog(selected.id)
-  }
-
-  openDialog(id: string) {
+  openDialog(selected: Organization) {
     const dialogRef = this.dialog.open(OrganizationDetailDialogComponent, {
-      data: id,
+      data: selected?.id,
       backdropClass: 'dialog-backdrop',
       disableClose: true
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`)
-      this.onLoad()
+
     })
   }
 
