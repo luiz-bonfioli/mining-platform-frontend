@@ -11,11 +11,11 @@ import { ServiceBase } from './service-base'
 @Directive()
 export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S extends ServiceBase<M>>
 {
-  protected currentItem: M
+  public currentItem: M
 
   private readOnly: boolean
-  private id: number = null
-  private parentId: number = null
+  private id: string = null
+  private parentId: string = null
   public menuItems: MenuItem[]
 
   public formDetail: FormGroup
