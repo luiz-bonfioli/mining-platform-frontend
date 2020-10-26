@@ -9,7 +9,7 @@
       <div #container class="flex-container flex-wrap">
         <div *ngFor="let organization of items" class="card organization-card">
           <div class="flex-space-between align-items-center mb-3">
-            <h3>{{ organization.name }}</h3>
+            <h3 (click)="showItem(organization)">{{ organization.name }}</h3>
             <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
               <mat-menu #menu>
                 <button mat-menu-item disabled>

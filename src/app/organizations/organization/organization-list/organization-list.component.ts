@@ -18,7 +18,7 @@ export class OrganizationListComponent extends ListBase<Organization, Organizati
     super(service, { "ROUTE": Routes.ORGANIZATION_ROUTE }, injector, RouteBehavior.OPEN_DIALOG)
   }
 
-  openDialog(selected: Organization) {
+  public openDialog(selected: Organization): void {
     const dialogRef = this.dialog.open(OrganizationDetailDialogComponent, {
       data: selected?.id,
       backdropClass: 'dialog-backdrop',
@@ -28,6 +28,10 @@ export class OrganizationListComponent extends ListBase<Organization, Organizati
     dialogRef.afterClosed().subscribe(result => {
 
     })
+  }
+
+  public showItem(selected: Organization): void {
+    this.router.navigate([this.route['ROUTE'], selected.id])
   }
 
 }

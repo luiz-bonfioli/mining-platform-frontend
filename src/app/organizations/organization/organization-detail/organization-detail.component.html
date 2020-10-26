@@ -1,15 +1,14 @@
 <div class="container-detail card">
 
+    <app-menu [formInvalid]="formDetail.invalid" title="Organization" [items]="menuItems"></app-menu>
+
     <div class="grid-container grid-col-2">
         <div class="flex-center align-items-center test picture">
             <span class="title-team"> O </span>
         </div>
         <div>picture</div>
         <div>picture</div>
-
     </div>
-
-    <!-- <app-menu [formInvalid]="formDetail.invalid" title="Organization" [items]="menuItems"></app-menu> -->
 
     <mat-tab-group mat-stretch-tabs animationDuration="0ms">
         <mat-tab>
@@ -17,7 +16,7 @@
                 <div class="flex-space-between align-items-center">
                     <span class="material-icons mr-4">location_city</span>
                     <span>Organization</span>
-                  </div>                
+                </div>
             </ng-template>
             <form [formGroup]="formDetail">
                 <div>
