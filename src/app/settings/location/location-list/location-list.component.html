@@ -1,33 +1,33 @@
 <div class="container-list">
 
-    <div class="location-menu">
-      <app-menu title="Location" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
-  
-      <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
-  
-        <div #container class="flex-container flex-wrap">
-          <div *ngFor="let location of items" class="card location-card">
-            <div class="flex-space-between align-items-center mb-3">
-              <h3>{{ location.name }}</h3>
-              <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
-                <mat-menu #menu>
-                  <button mat-menu-item disabled>
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                  <button (click)="updateItem(location)" mat-menu-item>
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit</span>
-                  </button>
-                  <button (click)="loadChildren(location.id)" mat-menu-item>
-                    <mat-icon>edit</mat-icon>
-                    <span>Children</span>
-                  </button>
-                </mat-menu>
-              </button>
-            </div>
-  
+  <div class="location-menu">
+    <app-menu title="Location" [items]="menuItems" searchVisible="true" (search)="onSearch($event)"></app-menu>
+
+    <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
+
+      <div #container class="flex-container flex-wrap">
+        <div *ngFor="let location of items" class="card location-card">
+          <div class="flex-space-between align-items-center mb-3">
+            <h3>{{ location.name }}</h3>
+            <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
+              <mat-menu #menu>
+                <button (click)="removeItem(location)" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+                <button (click)="updateItem(location)" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button (click)="loadChildren(location.id)" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span>Children</span>
+                </button>
+              </mat-menu>
+            </button>
           </div>
+
         </div>
-      </virtual-scroller>
-    </div>
+      </div>
+    </virtual-scroller>
+  </div>

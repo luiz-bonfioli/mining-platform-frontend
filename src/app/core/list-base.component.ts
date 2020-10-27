@@ -22,6 +22,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
 
   private routeBehavior: RouteBehavior
   private parentId: string = null
+  private searchInput: string = null
   public menuItems: MenuItem[]
 
   protected router: Router = this.injector.get(Router)
@@ -41,8 +42,10 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.onLoad()
   }
 
-  public search(input: string): void {
-    this.fetchItems(0, this.maxPerPage, [], Direction.ASC, [`name:${input}`])
+  public onSearch(input: string): void {
+    this.items = []
+    this.searchInput = input
+    this.fetchItems(0, this.maxPerPage, [], Direction.ASC, [`name:${this.searchInput}`])
   }
 
   protected onLoad(): void {
@@ -72,12 +75,6 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     newMenu.class = 'btn-primary'
     newMenu.action = () => this.newItem()
     this.addMenuItem(newMenu)
-
-    // let removeMenu = new MenuItem()
-    // removeMenu.icon = 'delete'
-    // removeMenu.class = 'red-btn'
-    // removeMenu.action = () => this.removeItem()
-    // this.addMenuItem(removeMenu)
   }
 
   protected addMenuItem(item: MenuItem): void {
@@ -171,6 +168,11 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   }
 
   public removeItem(selected: M): void {
+    this.service.delete(selected).subscribe(httpResponse => {
+      if (httpResponse.ok) {
+        this.items = this.items.filter(item => item.id !== selected.id);
+      }
+    })
   }
 
   public back(): void {
@@ -180,7 +182,9 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   public openDialog(selected: M = null) {
     const dialogRef = this.dialog.open(this.dialogComponent, {
       data: selected?.id,
-      disableClose: true
+      disableClose: false,
+      minWidth: 550,
+      minHeight: 450
     })
 
     dialogRef.afterClosed().subscribe(item =>

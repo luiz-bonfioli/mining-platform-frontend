@@ -1,26 +1,27 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ContextService } from '../core/context/context.service';
-import { MenuComponent } from '../core/action-menu/menu.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { QRCodeModule } from 'angularx-qrcode';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { MenuComponent } from '../core/action-menu/menu.component';
+import { ContextService } from '../core/context/context.service';
+import { HttpInterceptorService } from '../core/interceptor/http-interceptor.service';
 
 @NgModule({
   declarations: [MenuComponent],
@@ -70,6 +71,11 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
     QRCodeModule,
     VirtualScrollerModule
   ],
-  providers: [HttpClient, ContextService]
+  providers: [HttpClient, ContextService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }]
 })
 export class SharedModule { }

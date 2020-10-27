@@ -1,7 +1,7 @@
 <div class="container-list">
 
   <div class="equipment-menu">
-    <app-menu title="Checklist" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
+    <app-menu title="Checklist" [items]="menuItems" searchVisible="true" (search)="onSearch($event)"></app-menu>
 
     <mat-accordion multi="true">
       <mat-expansion-panel *ngFor="let checklist of items">
@@ -19,7 +19,7 @@
         <mat-list *ngFor="let item of checklist.checklistItems; let i = index">
           <div *ngIf="item.id && item.id != selectedChecklistItem?.id; then thenBlock else elseBlock"></div>
           <ng-template #thenBlock>
-            <mat-divider *ngIf="i != 0" ></mat-divider>
+            <mat-divider *ngIf="i != 0"></mat-divider>
             <div class="flex-space-between">
               <mat-list-item>{{ item.name }}</mat-list-item>
               <div class="flex-container">

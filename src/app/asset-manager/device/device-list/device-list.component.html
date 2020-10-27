@@ -1,7 +1,7 @@
 <div class="container-list">
 
   <div class="device-menu">
-    <app-menu title="Devices" [items]="menuItems" searchVisible="true" (search)="search($event)"></app-menu>
+    <app-menu title="Devices" [items]="menuItems" searchVisible="true" (search)="onSearch($event)"></app-menu>
 
     <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
 
@@ -11,7 +11,7 @@
             <h3>{{ device.id }}</h3>
             <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
               <mat-menu #menu>
-                <button mat-menu-item disabled>
+                <button (click)="removeItem(device)" mat-menu-item>
                   <mat-icon>delete</mat-icon>
                   <span>Delete</span>
                 </button>

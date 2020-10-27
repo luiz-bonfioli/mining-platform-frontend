@@ -1,5 +1,5 @@
 export class Routes {
-  
+
   public static readonly COMPANY_ROUTE = 'organizations/company';
   public static readonly ORGANIZATION_ROUTE = 'organizations/organization';
   public static readonly TEAM_ROUTE = 'organizations/team';
@@ -9,7 +9,7 @@ export class Routes {
   public static readonly EQUIPMENT_ROUTE = 'asset-manager/equipment';
   public static readonly CHECKLIST_ROUTE = 'asset-manager/checklist';
   public static readonly STATE_ROUTE = 'asset-manager/state';
-  
+
   public static readonly UNIT_ROUTE = 'settings/unit';
   public static readonly MATERIAL_ROUTE = 'settings/material';
   public static readonly LOCATION_ROUTE = 'settings/location';
@@ -17,19 +17,19 @@ export class Routes {
 
 
   public static readonly CHILD_ROUTE = 'children';
-  
+
 
   public static readonly EQUIPMENT_TYPE_ROUTE = 'equipment-type';
   public static readonly EQUIPMENT_MODEL_ROUTE = 'equipment-model';
-  
+
   public static readonly CHECKLIST_ITEM_ROUTE = 'checklist-item';
   public static readonly CHECKLIST_ENTRY_ROUTE = 'checklist-entry';
   public static readonly MEASUREMENT_ROUTE = 'measurement';
   public static readonly MEASUREMENT_TYPE_ROUTE = 'measurement-type';
-  
+
   public static readonly LOCATION_STRUCTURE_ROUTE = 'location-structure';
-  
-  
+
+
   public static readonly NOTIFICATION_ROUTE = 'notification';
   public static readonly PRODUCTION_TYPE_ROUTE = 'production-type';
   public static readonly ORDER_ROUTE = 'order';
@@ -42,7 +42,7 @@ export class Routes {
   public static readonly PLANNING_HIERARCHY_ROUTE = 'planning-hierarchy';
   public static readonly PRODUCTION_PLANNING_ROUTE = 'production-planning';
   public static readonly USER_ROUTE = 'user';
-  public static readonly PLANT_ROUTE = 'plant';  
+  public static readonly PLANT_ROUTE = 'plant';
   public static readonly STATE_GROUP_ROUTE = 'state-group';
   public static readonly PLAN_ROUTE = 'plan';
   public static readonly ORDER_PLANNING_BOARD_ROUTE = 'order-planning-board';
