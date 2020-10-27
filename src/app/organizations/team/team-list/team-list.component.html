@@ -6,10 +6,11 @@
     <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
 
       <div #container class="flex-container flex-wrap">
-        <div *ngFor="let team of items" class="card team-card">
+        <div (click)="showItem(team)" *ngFor="let team of items" class="card team-card">
           <div class="flex-space-between align-items-center mb-3">
             <h3>{{ team.name }}</h3>
-            <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert
+            <button (click)="$event.stopPropagation()" [matMenuTriggerFor]="menu"
+              class="material-icons cursor-pointer">more_vert
               <mat-menu #menu>
                 <button mat-menu-item disabled>
                   <mat-icon>delete</mat-icon>

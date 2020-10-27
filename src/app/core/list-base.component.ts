@@ -1,5 +1,7 @@
+import { ComponentType } from '@angular/cdk/portal'
 import { Location } from '@angular/common'
 import { Directive, Injector, OnInit } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { IPageInfo } from 'ngx-virtual-scroller'
 import { MenuItem } from './action-menu/menu-item'
@@ -18,6 +20,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   public totalItems: number
   public items: M[] = []
 
+  private routeBehavior: RouteBehavior
   private parentId: string = null
   public menuItems: MenuItem[]
 
@@ -25,9 +28,12 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   protected location: Location = this.injector.get(Location)
   protected activatedRoute: ActivatedRoute = this.injector.get(ActivatedRoute)
   protected context: ContextService = this.injector.get(ContextService)
+  protected dialog: MatDialog = this.injector.get(MatDialog)
 
   constructor(protected service: S, protected route: { [key: string]: string }, protected injector: Injector,
-    protected routeBehavior: RouteBehavior = RouteBehavior.NEW_PAGE) { }
+    protected dialogComponent: ComponentType<any> = null) {
+    this.routeBehavior = dialogComponent ? RouteBehavior.OPEN_DIALOG : RouteBehavior.NEW_PAGE
+  }
 
   ngOnInit(): void {
     this.fetchRouteParameters()
@@ -171,6 +177,20 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     this.location.back()
   }
 
-  public openDialog(selected: M = null): void {
+  public openDialog(selected: M = null) {
+    const dialogRef = this.dialog.open(this.dialogComponent, {
+      data: selected?.id,
+      disableClose: true
+    })
+
+    dialogRef.afterClosed().subscribe(item =>
+      this.afterDialogClosed(item)
+    )
+  }
+
+  public afterDialogClosed(item: M) {
+    if (item) {
+      this.items = this.items.concat(item)
+    }
   }
 }

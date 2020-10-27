@@ -13,9 +13,9 @@ import { OrganizationService } from '../organization.service'
 export class OrganizationDetailDialogComponent extends DetailBase<Organization, OrganizationService> {
 
   constructor(service: OrganizationService, injector: Injector,
-    private dialogRef: MatDialogRef<OrganizationDetailDialogComponent>,
+    dialog: MatDialogRef<OrganizationDetailDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public currentItemId: string) {
-    super(service, Organization, injector)
+    super(service, Organization, injector, dialog)
   }
 
   protected fetchItem(): void {
@@ -36,13 +36,5 @@ export class OrganizationDetailDialogComponent extends DetailBase<Organization, 
       description: ['', Validators.required]
     })
   }
-
-  protected afterSave(): void {
-
-  }
-
-  // closeDialog(): void {
-  //   this.dialogRef.close(this.currentItem)
-  // }
 
 }

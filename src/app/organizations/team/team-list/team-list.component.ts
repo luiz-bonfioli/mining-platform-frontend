@@ -1,7 +1,9 @@
 import { Component, Injector } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ListBase } from 'src/app/core/list-base.component';
 import { Routes } from 'src/app/core/routes';
 import { Team } from '../team';
+import { TeamDetailDialogComponent } from '../team-detail-dialog/team-detail-dialog.component';
 import { TeamService } from '../team.service';
 
 @Component({
@@ -11,8 +13,12 @@ import { TeamService } from '../team.service';
 })
 export class TeamListComponent extends ListBase<Team, TeamService> {
 
-  constructor(service: TeamService, injector: Injector) {
-    super(service, { "ROUTE": Routes.TEAM_ROUTE }, injector);
+  constructor(service: TeamService, injector: Injector, protected dialog: MatDialog) {
+    super(service, { "ROUTE": Routes.TEAM_ROUTE }, injector, TeamDetailDialogComponent);
+  }
+
+  public showItem(selected: Team): void {
+    this.router.navigate([this.route['ROUTE'], selected.id])
   }
 
 }

@@ -1,11 +1,13 @@
 import { Location } from '@angular/common'
 import { Directive, Injector } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ActivatedRoute, Params } from '@angular/router'
 import { MenuItem } from './action-menu/menu-item'
 import { ContextService } from './context/context.service'
 import { HierarchicalModelBase } from './hierarchical-model-base'
 import { ModelBase } from './model-base'
+import { RouteBehavior } from './route-behavior/route-behavior.enum'
 import { ServiceBase } from './service-base'
 
 @Directive()
@@ -13,19 +15,24 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 {
   public currentItem: M
 
-  private readOnly: boolean
-  private id: string = null
+  private routeBehavior: RouteBehavior
   private parentId: string = null
   public menuItems: MenuItem[]
 
   public formDetail: FormGroup
 
+  protected selectedId: string
   protected formBuilder: FormBuilder = this.injector.get(FormBuilder)
   protected location: Location = this.injector.get(Location)
   protected activatedRoute: ActivatedRoute = this.injector.get(ActivatedRoute)
   protected context: ContextService = this.injector.get(ContextService)
 
-  constructor(protected service: S, private modelType: { new(): M }, private injector: Injector) { }
+  constructor(protected service: S, private modelType: { new(): M }, private injector: Injector,
+    private dialogRef: MatDialogRef<any> = null) {
+    this.routeBehavior = dialogRef ? RouteBehavior.OPEN_DIALOG : RouteBehavior.NEW_PAGE
+    this.selectedId = dialogRef ? this.injector.get(MAT_DIALOG_DATA) : null
+
+  }
 
   beforeLoad(): void { }
 
@@ -57,7 +64,7 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
     backMenu.label = 'Back'
     backMenu.icon = 'backspace'
     //	backMenu.class = 'green-btn'
-    backMenu.action = () => this.back()
+    backMenu.action = () => this.navigate()
 
     let saveMenu = new MenuItem()
     saveMenu.label = 'Save'
@@ -95,8 +102,8 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   protected fetchItem(): void {
     this.beforeLoad()
-    if (this.id !== null) {
-      this.service.fetchItem(this.id)
+    if (this.selectedId) {
+      this.service.fetchItem(this.selectedId)
         .subscribe(item => { this.formDetail.patchValue(item); this.afterLoad() })
     }
     else {
@@ -117,13 +124,13 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   private fetchReadOnlyParameter(params: Params): void {
     if (params['readOnly'] !== undefined) {
-      this.readOnly = 'true' === params['readOnly']
+      //this.readOnly = 'true' === params['readOnly']
     }
   }
 
   private fetchIdParameter(params: Params): void {
     if (params['id'] !== undefined) {
-      this.id = params['id']
+      this.selectedId = params['id']
     }
   }
 
@@ -133,23 +140,29 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
     }
   }
 
-  // public back(): void {
-  //   this.location.back()
-  // }
-
   protected beforeSave(): void {
     this.currentItem = this.formDetail.value as M
     this.currentItem.id
   }
 
   protected afterSave(): void {
-    this.back()
+    this.navigate()
   }
 
+  public navigate(): void {
+    switch (this.routeBehavior) {
+      case RouteBehavior.NEW_PAGE:
+        this.location.back()
+        break
+      case RouteBehavior.OPEN_DIALOG:
+        this.closeDialog()
+        break
+    }
+  }
 
   protected onLoad(): void { }
 
-  public back(): void {
-    this.location.back()
+  public closeDialog() {
+    this.dialogRef.close(this.currentItem)
   }
 }
