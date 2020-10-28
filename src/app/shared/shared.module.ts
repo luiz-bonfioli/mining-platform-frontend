@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -44,6 +45,7 @@ import { HttpInterceptorService } from '../core/interceptor/http-interceptor.ser
     MatChipsModule,
     MatMenuModule,
     MatTabsModule,
+    MatTableModule,
     MatExpansionModule,
     QRCodeModule,
     VirtualScrollerModule
@@ -67,6 +69,7 @@ import { HttpInterceptorService } from '../core/interceptor/http-interceptor.ser
     MatMenuModule,
     MenuComponent,
     MatTabsModule,
+    MatTableModule,
     MatExpansionModule,
     QRCodeModule,
     VirtualScrollerModule

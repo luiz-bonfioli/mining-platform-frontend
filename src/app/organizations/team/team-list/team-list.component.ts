@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ListBase } from 'src/app/core/list-base.component';
 import { Routes } from 'src/app/core/routes';
 import { Team } from '../team';
@@ -13,7 +12,7 @@ import { TeamService } from '../team.service';
 })
 export class TeamListComponent extends ListBase<Team, TeamService> {
 
-  constructor(service: TeamService, injector: Injector, protected dialog: MatDialog) {
+  constructor(service: TeamService, injector: Injector) {
     super(service, { "ROUTE": Routes.TEAM_ROUTE }, injector, TeamDetailDialogComponent);
   }
 

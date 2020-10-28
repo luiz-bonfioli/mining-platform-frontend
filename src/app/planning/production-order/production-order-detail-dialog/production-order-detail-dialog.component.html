@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Plan</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formDetail">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description" required />
+            </mat-form-field>
+            <br>
+            <!-- <mat-form-field appearance="standard">
+                <mat-label>Plan</mat-label>
+                <input matInput formControlName="plan" />
+            </mat-form-field> -->
+            <br>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-button (click)="save()" cdkFocusInitial>Save</button>
+</div>

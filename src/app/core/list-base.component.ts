@@ -98,7 +98,6 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
       let page = Math.ceil(event.endIndex / this.maxPerPage)
       if (page != this.currentPage) {
         this.currentPage = page
-        console.log(this.currentPage)
         this.fetchItems(this.currentPage, this.maxPerPage, [], Direction.ASC, [])
       }
     }

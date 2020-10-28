@@ -15,6 +15,9 @@ export class Routes {
   public static readonly LOCATION_ROUTE = 'settings/location';
   public static readonly LOCATION_STATE_ROUTE = 'settings/state';
 
+  public static readonly PLAN_ROUTE = 'planning/plan';
+  public static readonly PRODUCTION_ORDER_ROUTE = 'planning/production-order';
+
 
   public static readonly CHILD_ROUTE = 'children';
 
@@ -32,7 +35,7 @@ export class Routes {
 
   public static readonly NOTIFICATION_ROUTE = 'notification';
   public static readonly PRODUCTION_TYPE_ROUTE = 'production-type';
-  public static readonly ORDER_ROUTE = 'order';
+
   public static readonly ORDER_TYPE_ROUTE = 'order-type';
   public static readonly OPERATION_ROUTE = 'operation';
   public static readonly OPERATION_TYPE_ROUTE = 'operation-type';
@@ -44,7 +47,7 @@ export class Routes {
   public static readonly USER_ROUTE = 'user';
   public static readonly PLANT_ROUTE = 'plant';
   public static readonly STATE_GROUP_ROUTE = 'state-group';
-  public static readonly PLAN_ROUTE = 'plan';
+
   public static readonly ORDER_PLANNING_BOARD_ROUTE = 'order-planning-board';
   public static readonly ORDER_SCHEDULING_BOARD_ROUTE = 'order-scheduling-board';
   public static readonly SHIFT_PLAN_ROUTE = 'shift-plan';
