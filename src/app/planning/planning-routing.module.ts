@@ -13,7 +13,7 @@ const routes: Routes = [
         canActivate: [AuthenticationGuard]
       },
       {
-        path: 'order', loadChildren: () => import('./production-order/production-order.module').then(mod => mod.ProductionOrderModule),
+        path: 'production-order', loadChildren: () => import('./production-order/production-order.module').then(mod => mod.ProductionOrderModule),
         canActivate: [AuthenticationGuard]
       }
     ]

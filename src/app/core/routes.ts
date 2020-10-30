@@ -17,7 +17,7 @@ export class Routes {
 
   public static readonly PLAN_ROUTE = 'planning/plan';
   public static readonly PRODUCTION_ORDER_ROUTE = 'planning/production-order';
-
+  public static readonly OPERATION_ROUTE = 'planning/operation';
 
   public static readonly CHILD_ROUTE = 'children';
 
@@ -37,7 +37,7 @@ export class Routes {
   public static readonly PRODUCTION_TYPE_ROUTE = 'production-type';
 
   public static readonly ORDER_TYPE_ROUTE = 'order-type';
-  public static readonly OPERATION_ROUTE = 'operation';
+
   public static readonly OPERATION_TYPE_ROUTE = 'operation-type';
   public static readonly OPERATION_LIST_ROUTE = 'operation-list';
   public static readonly ACTIVITY_ROUTE = 'activity';

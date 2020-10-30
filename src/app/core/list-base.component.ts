@@ -180,7 +180,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
 
   public openDialog(selected: M = null) {
     const dialogRef = this.dialog.open(this.dialogComponent, {
-      data: selected?.id,
+      data: { 'selectedId': selected?.id, 'parentId': this.parentId },
       disableClose: false,
       minWidth: 550,
       minHeight: 450
@@ -193,7 +193,15 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
 
   public afterDialogClosed(item: M) {
     if (item) {
-      this.items = this.items.concat(item)
+      if (this.items.some(e => e.id === item.id)) {
+        let updateItem = this.items.find(e => e.id === item.id)
+        let index = this.items.indexOf(updateItem);
+        this.items[index] = item;
+      }
+      else {
+        this.items = this.items.concat(item)
+      }
+
     }
   }
 }

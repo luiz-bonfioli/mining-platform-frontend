@@ -5,6 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ActivatedRoute, Params } from '@angular/router'
 import { MenuItem } from './action-menu/menu-item'
 import { ContextService } from './context/context.service'
+import { DialogData } from './dialog-data'
 import { HierarchicalModelBase } from './hierarchical-model-base'
 import { ModelBase } from './model-base'
 import { RouteBehavior } from './route-behavior/route-behavior.enum'
@@ -21,6 +22,7 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   public formDetail: FormGroup
 
+  protected dialogData: DialogData
   protected selectedId: string
   protected formBuilder: FormBuilder = this.injector.get(FormBuilder)
   protected location: Location = this.injector.get(Location)
@@ -30,8 +32,9 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
   constructor(protected service: S, private modelType: { new(): M }, private injector: Injector,
     private dialogRef: MatDialogRef<any> = null) {
     this.routeBehavior = dialogRef ? RouteBehavior.OPEN_DIALOG : RouteBehavior.NEW_PAGE
-    this.selectedId = dialogRef ? this.injector.get(MAT_DIALOG_DATA) : null
-
+    this.dialogData = dialogRef ? this.injector.get(MAT_DIALOG_DATA) : null
+    this.selectedId = this.dialogData?.selectedId
+    this.parentId = this.dialogData?.parentId
   }
 
   beforeLoad(): void { }
@@ -142,7 +145,6 @@ export abstract class DetailBase<M extends ModelBase | HierarchicalModelBase, S 
 
   protected beforeSave(): void {
     this.currentItem = this.formDetail.value as M
-    this.currentItem.id
   }
 
   protected afterSave(): void {
