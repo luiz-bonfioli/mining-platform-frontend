@@ -6,7 +6,7 @@
     <virtual-scroller class="virtual-scroller" #scroll [items]="items" (vsEnd)="onPageChanged($event)">
 
       <div #container class="flex-container flex-wrap">
-        <div *ngFor="let state of items" class="card state-card">
+        <div (click)="loadChildren(state.id)" *ngFor="let state of items" class="card state-card cursor-pointer">
           <div class="flex-space-between align-items-center mb-3">
             <h3>{{ state.name }}</h3>
             <button [matMenuTriggerFor]="menu" class="material-icons cursor-pointer">more_vert

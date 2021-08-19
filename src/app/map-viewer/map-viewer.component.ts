@@ -1,445 +1,373 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { ImprovedNoise } from 'three/examples/jsm/math/ImprovedNoise.js';
-import Stats from 'three/examples/jsm/libs/stats.module.js';
-import { ImageUtils } from 'three';
+import { Component, OnInit } from '@angular/core';
+import * as mapboxgl from 'mapbox-gl';
+import { environment } from '../../environments/environment';
 
 @Component({
 	selector: 'app-map-viewer',
 	templateUrl: './map-viewer.component.html',
 	styleUrls: ['./map-viewer.component.scss']
 })
-export class MapViewerComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MapViewerComponent implements OnInit {
 
-	@ViewChild('container') container: ElementRef;
+	private map: mapboxgl.Map;
+	//style = 'mapbox://styles/mapbox/streets-v11';
+	//private style = 'mapbox://styles/mapbox/dark-v10';
+	private style = 'mapbox://styles/mapbox/satellite-v9';
+	//lng = -43.967885971069336;
+	//lat = -19.968977522259678;
+	private lng = -43.97948384284973;
+	private lat = -20.049571778797166;
+	constructor() { }
 
-	constructor() {
+	public flyTo(): void {
+		let move = -43.98108;
+		setInterval(() => {
+			move += 0.0001;
+			var source = this.map.getSource('point') as mapboxgl.GeoJSONSource;
+			source.setData({
+				'type': 'FeatureCollection',
+				'features': [
+					{
+						'type': 'Feature',
+						"properties": {},
+						'geometry': {
+							'type': 'Point',
+							'coordinates': [move, -20.04825]
+						}
+					}
+				]
+			});
+		}, 3000)
 
+		this.map.flyTo({
+			// center: [
+			// 	-74.5 + (Math.random() - 0.5) * 10,
+			// 	40 + (Math.random() - 0.5) * 10
+			// ],
+			zoom: 18,
+			center: [-43.98108243942261, -20.048251472780628],
+			essential: true // this animation is considered essential with respect to prefers-reduced-motion
+		});
 	}
 
-	ngAfterViewInit(): void {
-
-		
-
-		/*
-		Three.js "tutorials by example"
-		Author: Lee Stemkoski
-		Date: July 2013 (three.js v59dev)
-	 */
-
-		// MAIN
-
-		// standard global variables
-		var container, scene, camera, renderer, controls, stats;
-		//var keyboard = new KeyboardState();
-		var clock = new THREE.Clock();
-
-		// custom global variables
-		var mesh;
-
-		init(this.container.nativeElement);
-		animate();
-
-		// FUNCTIONS 		
-		function init(container) {
-			// SCENE
-			scene = new THREE.Scene();
-			// CAMERA
-			var SCREEN_WIDTH = window.innerWidth, SCREEN_HEIGHT = window.innerHeight;
-			var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
-			camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
-			scene.add(camera);
-			camera.position.set(0, 100, 400);
-			camera.lookAt(scene.position);
-			// RENDERER
-		//	if (Detector.webgl)
-	
-				
-		//	else
-		//		renderer = new THREE.CanvasRenderer();
-			renderer = new THREE.WebGLRenderer( { antialias: true } );
-			renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-			//container = document.getElementById('ThreeJS');
-			container.appendChild(renderer.domElement);
-			// EVENTS
-		//	THREEx.WindowResize(renderer, camera);
-		//	THREEx.FullScreen.bindKey({ charCode: 'm'.charCodeAt(0) });
-			// CONTROLS
-			controls = new OrbitControls(camera, renderer.domElement);
-			// STATS
-		//	stats = new Stats();
-			//stats.domElement.style.position = 'absolute';
-			// stats.domElement.style.bottom = '0px';
-			// stats.domElement.style.zIndex = 100;
-			// container.appendChild(stats.domElement);
-			// LIGHT
-			var light = new THREE.PointLight(0xffffff);
-			light.position.set(100, 250, 100);
-			scene.add(light);
-			// FLOOR
-			var floorTexture = ImageUtils.loadTexture('assets/images/checkerboard.jpg');
-			floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-			floorTexture.repeat.set(10, 10);
-			var floorMaterial = new THREE.MeshBasicMaterial({ map: floorTexture, side: THREE.DoubleSide });
-			var floorGeometry = new THREE.PlaneGeometry(1000, 1000, 10, 10);
-			var floor = new THREE.Mesh(floorGeometry, floorMaterial);
-			floor.position.y = -0.5;
-			floor.rotation.x = Math.PI / 2;
-			//scene.add(floor);
-			// SKYBOX
-			var skyBoxGeometry = new THREE.ConeGeometry(20000, 20000, 10000);
-			var skyBoxMaterial = new THREE.MeshBasicMaterial({ color: 0x9999ff, side: THREE.BackSide });
-			var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
-			scene.add(skyBox);
-
-			////////////
-			// CUSTOM //
-			////////////
-
-			// texture used to generate "bumpiness"
-			var bumpTexture = ImageUtils.loadTexture('assets/images/heightmap.png');
-			bumpTexture.wrapS = bumpTexture.wrapT = THREE.RepeatWrapping;
-			// magnitude of normal displacement
-			var bumpScale = 200.0;
-
-			var oceanTexture = ImageUtils.loadTexture('assets/images/dirt-512.jpg');
-			oceanTexture.wrapS = oceanTexture.wrapT = THREE.RepeatWrapping;
-
-			var sandyTexture = ImageUtils.loadTexture('assets/images/sand-512.jpg');
-			sandyTexture.wrapS = sandyTexture.wrapT = THREE.RepeatWrapping;
-
-			var grassTexture = ImageUtils.loadTexture('assets/images/grass-512.jpg');
-			grassTexture.wrapS = grassTexture.wrapT = THREE.RepeatWrapping;
-
-			var rockyTexture = ImageUtils.loadTexture('assets/images/rock-512.jpg');
-			rockyTexture.wrapS = rockyTexture.wrapT = THREE.RepeatWrapping;
-
-			var snowyTexture = ImageUtils.loadTexture('assets/images/snow-512.jpg');
-			snowyTexture.wrapS = snowyTexture.wrapT = THREE.RepeatWrapping;
-
-
-			// use "this." to create global object
-			var customUniforms = {
-				bumpTexture: { type: "t", value: bumpTexture },
-				bumpScale: { type: "f", value: bumpScale },
-				oceanTexture: { type: "t", value: oceanTexture },
-				sandyTexture: { type: "t", value: sandyTexture },
-				grassTexture: { type: "t", value: grassTexture },
-				rockyTexture: { type: "t", value: rockyTexture },
-				snowyTexture: { type: "t", value: snowyTexture },
-			};
-
-			var vertexS = "  uniform sampler2D bumpTexture; 	uniform float bumpScale; varying float vAmount;varying vec2 vUV; 	void main() { vUV = uv;	vec4 bumpData = texture2D( bumpTexture, uv );				vAmount = bumpData.r;								vec3 newPosition = position + normal * bumpScale * vAmount;						gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );		}"
-			var fragmentS = "uniform sampler2D oceanTexture; uniform sampler2D sandyTexture; uniform sampler2D grassTexture; uniform sampler2D rockyTexture; uniform sampler2D snowyTexture; varying vec2 vUV; varying float vAmount; void main() { 	vec4 water = (smoothstep(0.01, 0.25, vAmount) - smoothstep(0.24, 0.26, vAmount)) * texture2D( oceanTexture, vUV * 10.0 ); 	vec4 sandy = (smoothstep(0.24, 0.27, vAmount) - smoothstep(0.28, 0.31, vAmount)) * texture2D( sandyTexture, vUV * 10.0 ); 	vec4 grass = (smoothstep(0.28, 0.32, vAmount) - smoothstep(0.35, 0.40, vAmount)) * texture2D( grassTexture, vUV * 20.0 ); 	vec4 rocky = (smoothstep(0.30, 0.50, vAmount) - smoothstep(0.40, 0.70, vAmount)) * texture2D( rockyTexture, vUV * 20.0 ); 	vec4 snowy = (smoothstep(0.50, 0.65, vAmount))                                   * texture2D( snowyTexture, vUV * 10.0 ); 	gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0) + water + sandy + grass + rocky + snowy;  }   "
-
-			// create custom material from the shader code above
-			//   that is within specially labelled script tags
-			var customMaterial = new THREE.ShaderMaterial(
-				{
-					uniforms: customUniforms,
-					vertexShader: vertexS, //vertexShader.innerHTML, // document.getElementById('vertexShader').textContent,
-					fragmentShader: fragmentS, //document.getElementById('fragmentShader').textContent,
-					// side: THREE.DoubleSide
-				});
-
-			var planeGeo = new THREE.PlaneGeometry(1000, 1000, 100, 100);
-			var plane = new THREE.Mesh(planeGeo, customMaterial);
-			plane.rotation.x = -Math.PI / 2;
-			plane.position.y = -100;
-			scene.add(plane);
-
-			var waterGeo = new THREE.PlaneGeometry(1000, 1000, 1, 1);
-			var waterTex = ImageUtils.loadTexture('assets/images/water512.jpg');
-			waterTex.wrapS = waterTex.wrapT = THREE.RepeatWrapping;
-			waterTex.repeat.set(5, 5);
-			var waterMat = new THREE.MeshBasicMaterial({ map: waterTex, transparent: true, opacity: 0.40 });
-			var water = new THREE.Mesh(planeGeo, waterMat);
-			water.rotation.x = -Math.PI / 2;
-			water.position.y = -50;
-			scene.add(water);
-
-
-
-		}
-
-		function animate() {
-			requestAnimationFrame(animate);
-			render();
-			update();
-		}
-
-		function update() {
-		//	if (keyboard.pressed("z")) {
-				// do something
-		//	}
-
-			controls.update();
-		//	stats.update();
-		}
-
-		function render() {
-			renderer.render(scene, camera);
-		}
-
-
-		// 	var stats;
-
-		// 	var camera, controls, scene, renderer;
-
-		// 	var mesh, texture;
-
-		// 	var worldWidth = 256, worldDepth = 256,
-		// 		worldHalfWidth = worldWidth / 2, worldHalfDepth = worldDepth / 2;
-
-		// 	var helper;
-
-		// 	var raycaster = new THREE.Raycaster();
-		// 	var mouse = new THREE.Vector2();
-
-		// 	init(this.container.nativeElement);
-		// 	animate();
-
-		// 	function init(container) {
-		// 		renderer = new THREE.WebGLRenderer( { antialias: true } );
-		// 		renderer.setPixelRatio( window.devicePixelRatio );
-		// 		renderer.setSize( window.innerWidth, window.innerHeight );
-		// 		container.appendChild( renderer.domElement );
-
-		// 		scene = new THREE.Scene();
-		// 		scene.background = new THREE.Color( 0xbfd1e5 );
-
-		// 		camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 10, 20000 );
-
-		// 		controls = new OrbitControls( camera, renderer.domElement );
-		// 		controls.minDistance = 1000;
-		// 		controls.maxDistance = 10000;
-		// 		controls.maxPolarAngle = Math.PI / 2;
-
-		// 		//
-
-		// 		var data = generateHeight( worldWidth, worldDepth );
-
-		// 		controls.target.y = data[ worldHalfWidth + worldHalfDepth * worldWidth ] + 500;
-		// 		camera.position.y = controls.target.y + 2000;
-		// 		camera.position.x = 2000;
-		// 		controls.update();
-
-		// 		var geometry = new THREE.PlaneBufferGeometry( 7500, 7500, worldWidth - 1, worldDepth - 1 );
-		// 		geometry.rotateX( - Math.PI / 2 );
-
-		// 		var vertices = geometry.attributes.position.array;
-
-		// 		for ( var i = 0, j = 0, l = vertices.length; i < l; i ++, j += 3 ) {
-
-		// 	//		vertices[ j + 1 ] = data[ i ] * 10;
-
-		// 		}
-
-		// //		geometry.computeFaceNormals(); // needed for helper
-
-		// 		//
-
-		// 		texture = new THREE.CanvasTexture( generateTexture( data, worldWidth, worldDepth ) );
-		// 		texture.wrapS = THREE.ClampToEdgeWrapping;
-		// 		texture.wrapT = THREE.ClampToEdgeWrapping;
-
-		// 		mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial( { map: texture } ) );
-		// 		scene.add( mesh );
-
-		// 		var geometry1 = new THREE.ConeBufferGeometry( 20, 100, 3 );
-		// 		geometry1.translate( 0, 50, 0 );
-		// 		geometry1.rotateX( Math.PI / 2 );
-		// 		helper = new THREE.Mesh( geometry1, new THREE.MeshNormalMaterial() );
-		// 		scene.add( helper );
-
-		// 		container.addEventListener( 'mousemove', onMouseMove, false );
-
-		// 		//stats = new Stats();
-		// 		//container.appendChild( stats.dom );
-
-		// 		//
-
-		// 		window.addEventListener( 'resize', onWindowResize, false );
-
-		// 	}
-
-		// 	function onWindowResize() {
-
-		// 		camera.aspect = window.innerWidth / window.innerHeight;
-		// 		camera.updateProjectionMatrix();
-
-		// 		renderer.setSize( window.innerWidth, window.innerHeight );
-
-		// 	}
-
-		// 	function generateHeight( width, height ) {
-
-		// 		var size = width * height, data = new Uint8Array( size ),
-		// 			perlin = new ImprovedNoise(), quality = 1, z = Math.random() * 100;
-
-		// 		for ( var j = 0; j < 4; j ++ ) {
-
-		// 			for ( var i = 0; i < size; i ++ ) {
-
-		// 				var x = i % width, y = ~ ~ ( i / width );
-		// 				data[ i ] += Math.abs( perlin.noise( x / quality, y / quality, z ) * quality * 1.75 );
-
-		// 			}
-
-		// 			quality *= 5;
-
-		// 		}
-
-		// 		return data;
-
-		// 	}
-
-		// 	function generateTexture( data, width, height ) {
-
-		// 		// bake lighting into texture
-
-		// 		var canvas, canvasScaled, context, image, imageData, vector3, sun, shade;
-
-		// 		vector3 = new THREE.Vector3( 0, 0, 0 );
-
-		// 		sun = new THREE.Vector3( 1, 1, 1 );
-		// 		sun.normalize();
-
-		// 		canvas = document.createElement( 'canvas' );
-		// 		canvas.width = width;
-		// 		canvas.height = height;
-
-		// 		context = canvas.getContext( '2d' );
-		// 		context.fillStyle = '#000';
-		// 		context.fillRect( 0, 0, width, height );
-
-		// 		image = context.getImageData( 0, 0, canvas.width, canvas.height );
-		// 		imageData = image.data;
-
-		// 		for ( var i = 0, j = 0, l = imageData.length; i < l; i += 4, j ++ ) {
-
-		// 			vector3.x = data[ j - 2 ] - data[ j + 2 ];
-		// 			vector3.y = 2;
-		// 			vector3.z = data[ j - width * 2 ] - data[ j + width * 2 ];
-		// 			vector3.normalize();
-
-		// 			shade = vector3.dot( sun );
-
-		// 			imageData[ i ] = ( 96 + shade * 128 ) * ( 0.5 + data[ j ] * 0.007 );
-		// 			imageData[ i + 1 ] = ( 32 + shade * 96 ) * ( 0.5 + data[ j ] * 0.007 );
-		// 			imageData[ i + 2 ] = ( shade * 96 ) * ( 0.5 + data[ j ] * 0.007 );
-
-		// 		}
-
-		// 		context.putImageData( image, 0, 0 );
-
-		// 		// Scaled 4x
-
-		// 		canvasScaled = document.createElement( 'canvas' );
-		// 		canvasScaled.width = width * 4;
-		// 		canvasScaled.height = height * 4;
-
-		// 		context = canvasScaled.getContext( '2d' );
-		// 		context.scale( 4, 4 );
-		// 		context.drawImage( canvas, 0, 0 );
-
-		// 		image = context.getImageData( 0, 0, canvasScaled.width, canvasScaled.height );
-		// 		imageData = image.data;
-
-		// 		for ( var i = 0, l = imageData.length; i < l; i += 4 ) {
-
-		// 			var v = ~ ~ ( Math.random() * 5 );
-
-		// 			imageData[ i ] += v;
-		// 			imageData[ i + 1 ] += v;
-		// 			imageData[ i + 2 ] += v;
-
-		// 		}
-
-		// 		context.putImageData( image, 0, 0 );
-
-		// 		return canvasScaled;
-
-		// 	}
-
-		// 	//
-
-		// 	function animate() {
-
-		// 		requestAnimationFrame( animate );
-
-		// 		render();
-		// 		stats.update();
-
-		// 	}
-
-		// 	function render() {
-
-		// 		renderer.render( scene, camera );
-
-		// 	}
-
-		// 	function onMouseMove( event ) {
-
-		// 		mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
-		// 		mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
-		// 		raycaster.setFromCamera( mouse, camera );
-
-		// 		// See if the ray from the camera into the world hits one of our meshes
-		// 		var intersects = raycaster.intersectObject( mesh );
-
-		// 		// Toggle rotation bool for meshes that we clicked
-		// 		if ( intersects.length > 0 ) {
-
-		// 			helper.position.set( 0, 0, 0 );
-		// 			helper.lookAt( intersects[ 0 ].face.normal );
-
-		// 			helper.position.copy( intersects[ 0 ].point );
-
-		// 		}
-
-		// 	}
-	}
-
-
-	ngOnDestroy(): void {
-
-	}
-
-	// ngAfterViewInit(): void {
-	//   var scene = new THREE.Scene();
-	//   var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);    
-
-	//   var renderer = new THREE.WebGLRenderer();
-	//   renderer.setSize(window.innerWidth, window.innerHeight);
-	//   renderer.setClearColor(0xf5f9fd, 1);
-	//   //renderer.setClearAlpha(0.)
-	//   this.container.nativeElement.appendChild(renderer.domElement);
-
-	//   var geometry = new THREE.BoxGeometry(1, 1, 1);
-	//   var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-	//   var cube = new THREE.Mesh(geometry, material);
-	//   scene.add(cube);
-
-	//   camera.position.z = 5;
-
-	//   var animate = function () {
-	//     requestAnimationFrame(animate);
-
-	//     cube.rotation.x += 0.01;
-	//     cube.rotation.y += 0.01;
-
-	//     renderer.render(scene, camera);
-	//   };
-
-	//   animate();
-	// }
-
-	ngOnInit(): void {
-
-
-
+	ngOnInit() {
+		mapboxgl.accessToken = environment.mapbox.accessToken;
+		this.map = new mapboxgl.Map({
+			container: 'map',
+			style: this.style,
+			zoom: 15,
+			center: [this.lng, this.lat]
+		});
+		// Add map controls
+		//this.map.addControl(new mapboxgl.NavigationControl());
+
+		this.map.on('load', () => {
+
+			['t1', 't2'].forEach(icon => this.map.loadImage(
+				`../assets/images/${icon}.png`, //'https://upload.wikimedia.org/wikipedia/commons/7/7c/201408_cat.png',
+				(error, image) => {
+					if (error) {
+						console.log(error);
+						throw error;
+					}
+					this.map.addImage(icon, image);
+				}
+			));
+
+			this.map.addSource('point', {
+				'type': 'geojson',
+				'data': {
+					'type': 'FeatureCollection',
+					'features': [
+						{
+							'type': 'Feature',
+							"properties": {},
+							'geometry': {
+								'type': 'Point',
+								'coordinates': [-43.98108243942261, -20.048251472780628]
+							}
+						}
+					]
+				}
+			});
+
+			this.map.addLayer({
+				'id': 'points',
+				'type': 'symbol',
+				'source': 'point', // reference the data source
+				'layout': {
+					'icon-image': 't1', // reference the image
+					'icon-size': ['interpolate', ['linear'], ['zoom'], 10, 0.1, 15, 0.5]
+				}
+			});
+
+			// Add a data source containing GeoJSON data.
+			this.map.addSource('maine', {
+				'type': 'geojson',
+				'data': {
+					"type": "Feature",
+					"properties": {},
+					"geometry": {
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[
+									-43.98345351219177,
+									-20.046036659701162
+								],
+								[
+									-43.9841428399086,
+									-20.046248315543476
+								],
+								[
+									-43.984282314777374,
+									-20.046225638145444
+								],
+								[
+									-43.98457199335098,
+									-20.046616192876268
+								],
+								[
+									-43.98463636636734,
+									-20.04674469776884
+								],
+								[
+									-43.984759747982025,
+									-20.046797611517572
+								],
+								[
+									-43.98488312959671,
+									-20.047047061807138
+								],
+								[
+									-43.98510307073593,
+									-20.047314149556616
+								],
+								[
+									-43.985526859760284,
+									-20.047729898451358
+								],
+								[
+									-43.98615449666976,
+									-20.048029740910334
+								],
+								[
+									-43.98659706115723,
+									-20.048191000483417
+								],
+								[
+									-43.986929655075066,
+									-20.048543755222113
+								],
+								[
+									-43.98728370666504,
+									-20.049370206077707
+								],
+								[
+									-43.987358808517456,
+									-20.05027728127719
+								],
+								[
+									-43.987122774124146,
+									-20.050690502686038
+								],
+								[
+									-43.987133502960205,
+									-20.05091223079848
+								],
+								[
+									-43.98593187332153,
+									-20.05146654970946
+								],
+								[
+									-43.98553490638733,
+									-20.051557256253982
+								],
+								[
+									-43.9848268032074,
+									-20.051768904654068
+								],
+								[
+									-43.98419380187988,
+									-20.05209141595308
+								],
+								[
+									-43.983485698699944,
+									-20.052615495400765
+								],
+								[
+									-43.98330330848694,
+									-20.052806985531724
+								],
+								[
+									-43.982412815093994,
+									-20.053139573098697
+								],
+								[
+									-43.9812970161438,
+									-20.053633413943558
+								],
+								[
+									-43.98047089576721,
+									-20.054016391488243
+								],
+								[
+									-43.97987008094787,
+									-20.053834981188825
+								],
+								[
+									-43.97919416427612,
+									-20.05367372741332
+								],
+								[
+									-43.97835731506348,
+									-20.053774511042416
+								],
+								[
+									-43.97758483886719,
+									-20.053875294606808
+								],
+								[
+									-43.977155685424805,
+									-20.05419780157799
+								],
+								[
+									-43.97659778594971,
+									-20.05444975968814
+								],
+								[
+									-43.97627592086792,
+									-20.055165318515467
+								],
+								[
+									-43.97654414176941,
+									-20.05544750983209
+								],
+								[
+									-43.9767050743103,
+									-20.055699465936048
+								],
+								[
+									-43.97632956504822,
+									-20.056052203802043
+								],
+								[
+									-43.97483825683594,
+									-20.055890952304527
+								],
+								[
+									-43.97380828857422,
+									-20.05512500542881
+								],
+								[
+									-43.9722204208374,
+									-20.05407686154146
+								],
+								[
+									-43.96934509277343,
+									-20.051738669185806
+								],
+								[
+									-43.96917343139648,
+									-20.050408302817274
+								],
+								[
+									-43.96973133087158,
+									-20.049722958166925
+								],
+								[
+									-43.97130846977233,
+									-20.04964232918784
+								],
+								[
+									-43.97159814834595,
+									-20.04940044200211
+								],
+								[
+									-43.97202730178833,
+									-20.04931981285739
+								],
+								[
+									-43.97244572639465,
+									-20.049088003835653
+								],
+								[
+									-43.97334694862366,
+									-20.048160764326095
+								],
+								[
+									-43.97454857826233,
+									-20.047344385877
+								],
+								[
+									-43.975675106048584,
+									-20.046840446443962
+								],
+								[
+									-43.976640701293945,
+									-20.046447372563428
+								],
+								[
+									-43.97753119468689,
+									-20.04630626887913
+								],
+								[
+									-43.978132009506226,
+									-20.046336505393576
+								],
+								[
+									-43.97848606109619,
+									-20.04638689957139
+								],
+								[
+									-43.979215621948235,
+									-20.04623571698941
+								],
+								[
+									-43.98106098175049,
+									-20.045913193661377
+								],
+								[
+									-43.98200511932372,
+									-20.046255874675413
+								],
+								[
+									-43.982863426208496,
+									-20.04637682073712
+								],
+								[
+									-43.98345351219177,
+									-20.046036659701162
+								]
+							]
+						]
+					}
+				}
+			});
+
+			// Add a new layer to visualize the polygon.
+			this.map.addLayer({
+				'id': 'maine',
+				'type': 'fill',
+				'source': 'maine', // reference the data source
+				'layout': {},
+				'paint': {
+					'fill-color': '#0080ff', // blue color fill
+					'fill-opacity': 0.0
+				}
+			});
+			// Add a black outline around the polygon.
+			this.map.addLayer({
+				'id': 'outline',
+				'type': 'line',
+				'source': 'maine',
+				'layout': {},
+				'paint': {
+					'line-color': '#fff',
+					'line-width': 3
+				}
+			});
+		});
 	}
 
 

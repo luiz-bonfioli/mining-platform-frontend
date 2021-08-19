@@ -1,10 +1,10 @@
 import { Component, Injector } from '@angular/core';
-import { Equipment } from '../equipment';
-import { DetailBase } from 'src/app/core/detail-base.component';
-import { EquipmentService } from '../equipment.service';
 import { FormGroup, Validators } from '@angular/forms';
+import { DetailBase } from 'src/app/core/detail-base.component';
 import { Category } from '../category/category';
 import { CategoryService } from '../category/category.service';
+import { Equipment } from '../equipment';
+import { EquipmentService } from '../equipment.service';
 import { Model } from '../model/model';
 import { ModelService } from '../model/model.service';
 
@@ -29,9 +29,9 @@ export class EquipmentDetailComponent extends DetailBase<Equipment, EquipmentSer
 
   public createFormGroup(): FormGroup {
     return this.formBuilder.group({
-      id: [''],
-      name: ['', Validators.required],
-      shortName: ['', Validators.required],
+      id: [null],
+      name: [null, Validators.required],
+      shortName: [null, Validators.required],
       category: [null, Validators.required],
       model: [null, Validators.required],
       device: [null]

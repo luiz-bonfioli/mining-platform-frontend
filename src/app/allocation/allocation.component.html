@@ -1,1 +1,23 @@
-<p>allocation works!</p>
+<div class="container-list">
+
+    <div class="equipment-menu">
+        <app-menu title="Allocation" [items]="menuItems" searchVisible="true" (search)="onSearch($event)"></app-menu>
+
+        <mat-accordion multi="true">
+            <mat-expansion-panel *ngFor="let productionOrder of items">
+
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{ productionOrder.description }}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+
+
+                <mat-action-row>
+                </mat-action-row>
+
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

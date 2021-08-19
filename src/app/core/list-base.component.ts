@@ -169,7 +169,7 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
   public removeItem(selected: M): void {
     this.service.delete(selected).subscribe(httpResponse => {
       if (httpResponse.ok) {
-        this.items = this.items.filter(item => item.id !== selected.id);
+        this.items = this.items.filter(item => item.id !== selected.id)
       }
     })
   }
@@ -195,8 +195,8 @@ export abstract class ListBase<M extends ModelBase, S extends ServiceBase<M>> im
     if (item) {
       if (this.items.some(e => e.id === item.id)) {
         let updateItem = this.items.find(e => e.id === item.id)
-        let index = this.items.indexOf(updateItem);
-        this.items[index] = item;
+        let index = this.items.indexOf(updateItem)
+        this.items[index] = item
       }
       else {
         this.items = this.items.concat(item)
