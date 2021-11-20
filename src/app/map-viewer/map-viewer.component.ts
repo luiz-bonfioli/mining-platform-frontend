@@ -51,12 +51,12 @@ export class MapViewerComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		mapboxgl.accessToken = environment.mapbox.accessToken;
 		this.map = new mapboxgl.Map({
 			container: 'map',
 			style: this.style,
 			zoom: 15,
-			center: [this.lng, this.lat]
+			center: [this.lng, this.lat],
+			accessToken: environment.mapbox.accessToken
 		});
 		// Add map controls
 		//this.map.addControl(new mapboxgl.NavigationControl());
